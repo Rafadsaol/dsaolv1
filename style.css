@@ -222,3 +222,34 @@ to{opacity:1;transform:translateY(0)}
 .project-card .project-tech{font-size:11px;color:#9caac0;margin-top:auto;margin-bottom:18px}
 .project-card .button{width:100%}
 @media(max-width:820px){.portfolio{padding:55px 0}}
+
+/* V4: orçamento. Estilos de campos limitados ao formulário para preservar as demos. */
+.lead-page{padding-bottom:100px}
+.quote{padding:75px 0 80px;border-top:1px solid var(--line)}
+.quote-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:start}
+.quote-copy>p:not(.eyebrow){color:var(--muted);font-size:14px;line-height:1.9;margin-top:24px}
+.quote-steps{padding-left:22px;color:#c3d0e3;font-size:14px}.quote-steps li{padding:0 0 16px 8px}.quote-steps li::marker{color:#91b9ff}
+.quote-copy .quote-privacy{padding-top:24px;border-top:1px solid var(--line);font-size:12px!important}
+.quote-form{min-width:0;padding:32px;border:1px solid #3f609966;border-radius:14px;background:linear-gradient(145deg,#131f35,#0e1728);box-shadow:0 20px 50px #0002}
+.form-intro,.field-hint{font-size:12px;color:#a5b5ce;margin:0 0 12px;line-height:1.7}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 18px}.form-wide{grid-column:1/-1}.form-field{min-width:0}
+.quote-form label{display:block;font-size:13px;font-weight:500;color:#d3dfef;margin-bottom:8px}.quote-form label>span{font-weight:400}
+.quote-form input:not([type="checkbox"]),.quote-form select,.quote-form textarea{display:block;min-width:0;width:100%;min-height:48px;padding:12px;border:1px solid #405477;border-radius:7px;background:#0b1527;color:var(--text);font:inherit;font-size:14px;transition:border-color .35s ease,box-shadow .35s ease}
+.quote-form textarea{resize:vertical;line-height:1.7;min-height:140px}.quote-form input::placeholder,.quote-form textarea::placeholder{color:#8b9db8;opacity:1}
+.quote-form input:hover,.quote-form select:hover,.quote-form textarea:hover{border-color:#739bd8}
+.quote-form input:focus-visible,.quote-form select:focus-visible,.quote-form textarea:focus-visible,.quote-feedback:focus-visible{outline:3px solid #80b4ff;outline-offset:3px}
+.quote-form [aria-invalid="true"]{border-color:#ff9d9d!important}
+.field-error{font-size:12px;color:#ffb5b5;margin:8px 0 0;line-height:1.65}.field-error:empty{display:none}.form-field .field-hint{margin:8px 0 0}
+.quote-form .consent-label{display:flex;align-items:flex-start;gap:12px;font-size:12px;line-height:1.8;cursor:pointer;margin:0}
+.quote-form input[type="checkbox"]{flex:0 0 auto;width:20px;height:20px;margin:2px 0 0;accent-color:var(--blue)}
+.quote-feedback{scroll-margin:130px 0 120px;padding:14px 16px;border:1px solid #637faf66;border-radius:7px;font-size:13px;color:#c2d7ff;overflow-wrap:anywhere;margin:0 0 20px}.quote-feedback:empty{display:none}.quote-feedback[data-state="error"]{color:#ffbcbc;border-color:#bd666680;background:#bd66660d}
+.quote-submit{width:100%;border:0;cursor:pointer;font:inherit;font-size:13px;font-weight:600;margin:4px 0 14px}.quote-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.whatsapp-dock{position:fixed;right:28px;bottom:24px;z-index:9}
+.whatsapp-float{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 20px;background:#164c40;color:#e1fff4;border:1px solid #66bea5;border-radius:30px;box-shadow:0 8px 28px #0005;cursor:pointer;font:inherit;font-size:13px;font-weight:600;transition:background .35s ease,box-shadow .4s ease}
+.whatsapp-float:hover{background:#1e6354;box-shadow:0 12px 32px #0006}.whatsapp-float:disabled{opacity:.6;cursor:not-allowed}
+@media(max-width:1000px){.quote-layout{gap:32px;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr)}.quote-form{padding:24px}.form-grid{grid-template-columns:1fr}}
+@media(max-width:820px){.quote{padding:55px 0}.quote-layout{grid-template-columns:1fr}.quote-copy{max-width:620px}}
+@media(max-width:600px){html{scroll-padding-bottom:100px}.quote-form input:not([type="checkbox"]),.quote-form select,.quote-form textarea{font-size:16px}.quote-form{padding:22px 18px}.whatsapp-dock{left:0;right:0;bottom:0;padding:10px 20px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:flex-end;background:#0b1120f5;border-top:1px solid var(--line)}.whatsapp-float{min-height:48px}.lead-page{padding-bottom:calc(90px + env(safe-area-inset-bottom))}.quote-submit{font-size:12px;gap:8px}}
+.service-link{margin-top:20px;font-size:12px}
+.contact-action #email-contact{margin-top:12px;width:100%}
+.contact-action>a:first-child{width:100%}
