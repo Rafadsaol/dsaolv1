@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard fictício de infraestrutura da dSaOl IT, com indicadores simulados.">
+  <title>Dashboard demonstrativo | dSaOl IT</title>
+  <link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../demo.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="demo-page">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="demo-topbar"><nav class="container" aria-label="Navegação da demonstração"><a class="demo-brand" href="../../index.html">dSaOl IT<span>.</span></a><a class="demo-back" href="../../index.html#projetos">← Voltar ao portfólio</a></nav></header>
+  <main class="container demo-main" id="conteudo" tabindex="-1">
+    <div class="demo-heading"><p class="eyebrow">PROJETO FICTÍCIO / INFRAESTRUTURA</p><h1>Uma visão clara da operação.</h1><p>Experimente um painel de infraestrutura com métricas e servidores inteiramente fictícios.</p><div class="demo-notice">Ambiente demonstrativo — dados simulados</div></div>
+    <div class="demo-toolbar"><button class="button primary" id="toggle-simulation" type="button" aria-pressed="false">Iniciar simulação</button><p id="simulation-state" role="status">Simulação pausada. Nenhuma conexão real.</p></div>
+    <section class="metrics" aria-label="Indicadores simulados">
+      <article class="panel metric"><h2>CPU</h2><p class="metric-value"><span id="cpu-value">32</span><small> %</small></p><meter id="cpu-meter" min="0" max="100" value="32" aria-label="Uso de CPU">32%</meter></article>
+      <article class="panel metric"><h2>RAM</h2><p class="metric-value"><span id="ram-value">48</span><small> %</small></p><meter id="ram-meter" min="0" max="100" value="48" aria-label="Uso de RAM">48%</meter></article>
+      <article class="panel metric"><h2>Armazenamento</h2><p class="metric-value"><span id="storage-value">61</span><small> %</small></p><meter id="storage-meter" min="0" max="100" value="61" aria-label="Uso de armazenamento">61%</meter></article>
+      <article class="panel metric"><h2>Rede</h2><p class="metric-value"><span id="network-value">120</span><small> Mbps</small></p><meter id="network-meter" min="0" max="500" value="120" aria-label="Tráfego de rede em Mbps">120 Mbps</meter></article>
+    </section>
+    <div class="dashboard-grid">
+      <section class="panel" aria-labelledby="chart-heading"><h2 id="chart-heading">Histórico de CPU</h2><p>Últimas 20 amostras simuladas · escala de 0 a 100%</p><svg class="chart" viewBox="0 0 600 220" role="img" aria-labelledby="chart-title chart-description"><title id="chart-title">Uso simulado de CPU ao longo do tempo</title><desc id="chart-description">Aguardando a primeira atualização da simulação.</desc><path class="chart-grid" d="M10 10H590M10 60H590M10 110H590M10 160H590M10 210H590"/><polyline id="cpu-line" class="chart-line" points="10,146 590,146"/></svg><div class="chart-labels"><span>Mais antiga</span><span>Mais recente</span></div></section>
+      <section class="panel" aria-labelledby="servers-heading"><h2 id="servers-heading">Servidores fictícios</h2><ul class="server-list"><li><div>demo-web-01<small>Aplicação · ambiente fictício</small></div><span class="server-status" data-state="online">Operacional</span></li><li><div>demo-worker-02<small>Processos · ambiente fictício</small></div><span class="server-status" data-state="attention">Atenção</span></li><li><div>demo-files-03<small>Arquivos · ambiente fictício</small></div><span class="server-status" data-state="offline">Indisponível</span></li></ul></section>
+    </div>
+    <p class="demo-footnote">Nenhuma conexão com servidores ou redes. Os números são gerados apenas neste navegador. Atualização a cada 1,6 segundo enquanto a simulação estiver ativa.</p>
+  </main>
+</body>
+</html>

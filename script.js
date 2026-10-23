@@ -46,7 +46,7 @@ document.addEventListener('click', (event) => {
 
 window.matchMedia('(min-width: 821px)').addEventListener('change', closeMenu);
 
-// Four sections: one scheduled update per frame keeps scroll work small.
+// Uma atualização por frame mantém leve o destaque das seções do menu.
 const sectionLinks = [...menu.querySelectorAll('a[href^="#"]')];
 const sections = sectionLinks.map((link) => document.querySelector(link.hash));
 let navigationFrame = null;

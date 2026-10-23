@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Loja fictícia para testar catálogo, busca e carrinho local, sem compras ou pagamentos reais.">
+  <title>Loja demonstrativa | dSaOl IT</title>
+  <link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../demo.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="demo-page">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="demo-topbar"><nav class="container" aria-label="Navegação da demonstração"><a class="demo-brand" href="../../index.html">dSaOl IT<span>.</span></a><a class="demo-back" href="../../index.html#projetos">← Voltar ao portfólio</a></nav></header>
+  <main class="container demo-main" id="conteudo" tabindex="-1">
+    <div class="demo-heading"><p class="eyebrow">PROJETO FICTÍCIO / LOJA VIRTUAL</p><h1>Explore. Escolha. Experimente.</h1><p>Uma loja conceito de acessórios tecnológicos, com catálogo e carrinho interativos.</p><div class="demo-notice">Loja demonstrativa — produtos fictícios, sem vendas ou pagamentos reais.</div></div>
+    <p class="storage-notice" id="storage-notice" role="status" hidden></p>
+    <div class="shop-layout">
+      <section aria-labelledby="catalog-heading"><h2 id="catalog-heading" class="shop-heading">Catálogo</h2><div class="shop-filters"><div><label for="search">Buscar produtos</label><input id="search" type="search" placeholder="Ex.: teclado" autocomplete="off"></div><div><label for="category">Categoria</label><select id="category"><option value="all">Todas as categorias</option><option value="perifericos">Periféricos</option><option value="audio">Áudio</option><option value="acessorios">Acessórios</option></select></div></div><p class="result-count" id="result-count" role="status"></p><div class="product-grid" id="products"></div><p id="empty-results" hidden>Nenhum produto encontrado. Tente outro termo ou categoria.</p></section>
+      <aside class="panel cart-panel" aria-labelledby="cart-heading"><h2 id="cart-heading" tabindex="-1">Seu carrinho <span id="cart-count">(0)</span></h2><p class="cart-caption">Apenas itens fictícios · até 99 unidades por produto</p><p id="empty-cart">O carrinho está vazio. Explore o catálogo para começar.</p><ul class="cart-items" id="cart-items"></ul><div class="cart-summary"><div><span>Subtotal</span><span id="subtotal">R$ 0,00</span></div><div class="cart-total"><strong>Total</strong><strong id="total">R$ 0,00</strong></div></div><p class="cart-caption">Sem frete ou cobrança. Nenhum dado pessoal é solicitado.</p><button class="button primary" type="button" id="checkout" disabled>Finalizar compra</button><p class="cart-feedback" id="cart-feedback" role="status"></p></aside>
+    </div>
+    <noscript><p class="demo-notice">Ative o JavaScript para experimentar o catálogo e o carrinho.</p></noscript>
+    <p class="demo-footnote">Somente identificadores e quantidades do carrinho são salvos no armazenamento local deste navegador, quando disponível.</p>
+  </main>
+</body>
+</html>

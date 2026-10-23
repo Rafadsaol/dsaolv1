@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Demonstração fictícia de automação de processos com etapas e logs simulados.">
+  <title>Automação demonstrativa | dSaOl IT</title>
+  <link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../demo.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="demo-page">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="demo-topbar"><nav class="container" aria-label="Navegação da demonstração"><a class="demo-brand" href="../../index.html">dSaOl IT<span>.</span></a><a class="demo-back" href="../../index.html#projetos">← Voltar ao portfólio</a></nav></header>
+  <main class="container demo-main" id="conteudo" tabindex="-1">
+    <div class="demo-heading"><p class="eyebrow">PROJETO FICTÍCIO / AUTOMAÇÃO</p><h1>Do primeiro passo à conclusão.</h1><p>Uma visualização interativa de um fluxo de trabalho. Execute, acompanhe as etapas e reinicie quando quiser.</p><div class="demo-notice">Demonstração fictícia — não há processamento real nem envio de dados.</div></div>
+    <div class="demo-toolbar"><button class="button primary" id="run-automation" type="button">Executar automação</button><button class="button secondary" id="reset-automation" type="button">Reiniciar demonstração</button><p id="automation-state" role="status">Pronto para executar.</p></div>
+    <section class="panel" aria-labelledby="flow-heading"><h2 id="flow-heading">Fluxo da solicitação</h2>
+      <ol class="workflow">
+        <li class="workflow-step" data-state="pending"><span class="step-number" aria-hidden="true">01</span><h3>Receber solicitação</h3><p>Entrada fictícia de uma nova tarefa.</p><span class="step-status">Aguardando</span></li>
+        <li class="workflow-step" data-state="pending"><span class="step-number" aria-hidden="true">02</span><h3>Validar dados</h3><p>Conferência simulada dos requisitos.</p><span class="step-status">Aguardando</span></li>
+        <li class="workflow-step" data-state="pending"><span class="step-number" aria-hidden="true">03</span><h3>Processar</h3><p>Execução ilustrativa do fluxo.</p><span class="step-status">Aguardando</span></li>
+        <li class="workflow-step" data-state="pending"><span class="step-number" aria-hidden="true">04</span><h3>Finalizar</h3><p>Conclusão da demonstração.</p><span class="step-status">Aguardando</span></li>
+      </ol>
+    </section>
+    <section class="panel log-panel" aria-labelledby="log-heading"><h2 id="log-heading">Log de execução</h2><p id="log-empty">Os registros simulados aparecerão aqui.</p><div class="execution-log" role="log" aria-label="Registros da automação" aria-relevant="additions" aria-atomic="false"><ol id="execution-log"></ol></div></section>
+    <p class="demo-footnote">Os horários correspondem ao relógio do seu navegador. Nenhum serviço é acionado; todas as etapas são simulações locais.</p>
+  </main>
+</body>
+</html>

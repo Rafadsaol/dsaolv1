@@ -207,3 +207,18 @@ to{opacity:1;transform:translateY(0)}
 *,*::before,*::after{transition:none!important;animation:none!important}
 .button:hover,.card:hover{transform:none}
 }
+
+/* Portfólio: ilustrações locais, sem imagens ou fontes externas. */
+.portfolio{padding:75px 0 80px;border-top:1px solid var(--line)}
+.project-preview{height:168px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;margin:-6px -6px 24px;border:1px solid var(--line);border-radius:9px;background:radial-gradient(ellipse at top right,#2563eb26,transparent),#0b1426;overflow:hidden}
+.project-preview>span{font-size:32px;color:#8bb3ff;line-height:1}
+.project-preview small{font-size:9px;letter-spacing:1.2px;color:#9caac0}
+.preview-bars{height:36px;display:flex;align-items:flex-end;gap:9px}
+.preview-bars i{width:22px;height:70%;border-radius:3px;background:linear-gradient(#6097ff,#2563eb60)}
+.preview-bars i:nth-child(2){height:40%}.preview-bars i:nth-child(3){height:95%}.preview-bars i:nth-child(4){height:55%}.preview-bars i:nth-child(5){height:80%}
+.preview-automacao .preview-bars{align-items:center}.preview-automacao .preview-bars i{height:18px;width:18px;border:1px solid #83adff;border-radius:50%}
+.preview-loja .preview-bars i{height:30px;width:30px;border:1px solid #426ca5}
+.project-card .project-label{font-size:9px;letter-spacing:1.1px;color:#a8c8ff;margin:0 0 12px}
+.project-card .project-tech{font-size:11px;color:#9caac0;margin-top:auto;margin-bottom:18px}
+.project-card .button{width:100%}
+@media(max-width:820px){.portfolio{padding:55px 0}}
