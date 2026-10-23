@@ -82,3 +82,8 @@ Configure e confira o número real no `config.js`, revise o e-mail provisório `
 ### Atualizações no GitHub Pages
 
 A landing page carrega `config.js` e `orcamento.js` com um identificador de versão na URL. Ao modificar esses arquivos, atualize esse identificador no `index.html` para evitar que visitantes usem versões antigas do cache. Depois de um push, aguarde a conclusão do deploy no GitHub Actions. Se a página ainda mostrar conteúdo antigo, faça uma atualização forçada ou teste em uma janela privativa. A conversa do WhatsApp usa navegação na mesma aba, sem depender de pop-ups.
+
+
+## Guia de estudos do código
+
+Acesse o [guia completo em português](docs/estudos/README.md), com mapa de todos os arquivos, explicações dos trechos reais, glossário e exercícios progressivos. O material cobre HTML, CSS, JavaScript, acessibilidade, formulário/WhatsApp, dashboard, automação, loja, depuração e publicação. Inclui um laboratório independente de três arquivos para praticar em outro ambiente sem enviar mensagens ou modificar o site publicado.
