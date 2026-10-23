@@ -47,7 +47,7 @@ A configuração é pública e não deve conter senhas ou credenciais. Sem um n�
 ### Funcionamento e dados pessoais
 
 - O formulário valida nome completo, e-mail, telefone brasileiro com DDD, serviço, descrição e ciência sobre o uso dos dados. Empresa é opcional. Os limites são 100 caracteres para nome/empresa, 254 para e-mail, 22 para telefone e de 20 a 2.000 para descrição.
-- Após validação e uma ação explícita, a mensagem é codificada com `encodeURIComponent` e o WhatsApp é aberto na mesma aba. O visitante deve revisar e confirmar o envio no próprio WhatsApp. Use o botão Voltar do navegador para retornar ao site.
+- Após validação e uma ação explícita, a mensagem é codificada com `encodeURIComponent` e é solicitada a abertura do WhatsApp em uma nova aba ou janela. O visitante deve revisar e confirmar o envio no próprio WhatsApp. O site permanece aberto. Se o navegador bloquear a abertura, há um link manual no feedback do formulário.
 - Não há backend, formulário HTTP ativo, `fetch`, analytics ou armazenamento dos dados pessoais em cookies, localStorage, sessionStorage ou logs. Os controles não têm atributos `name`, e o botão de envio permanece desabilitado sem JavaScript, evitando envio nativo acidental.
 - Os dados são incluídos na URL do WhatsApp somente após a ação explícita. O navegador e o WhatsApp passam a tratar essa navegação; o site não controla os registros ou o histórico desses serviços.
 - O botão flutuante prepara apenas uma saudação genérica, sem copiar os dados preenchidos no formulário.
@@ -81,7 +81,7 @@ Configure e confira o número real no `config.js`, revise o e-mail provisório `
 
 ### Atualizações no GitHub Pages
 
-A landing page carrega `config.js` e `orcamento.js` com um identificador de versão na URL. Ao modificar esses arquivos, atualize esse identificador no `index.html` para evitar que visitantes usem versões antigas do cache. Depois de um push, aguarde a conclusão do deploy no GitHub Actions. Se a página ainda mostrar conteúdo antigo, faça uma atualização forçada ou teste em uma janela privativa. A conversa do WhatsApp usa navegação na mesma aba, sem depender de pop-ups.
+A landing page carrega `config.js` e `orcamento.js` com um identificador de versão na URL. Ao modificar esses arquivos, atualize esse identificador no `index.html` para evitar que visitantes usem versões antigas do cache. Depois de um push, aguarde a conclusão do deploy no GitHub Actions. Se a página ainda mostrar conteúdo antigo, faça uma atualização forçada ou teste em uma janela privativa. A conversa do WhatsApp solicita uma nova aba ou janela com `noopener,noreferrer`; o navegador decide a apresentação e pode bloquear pop-ups. Um link com `target="_blank"` permanece disponível no feedback para tentar a abertura manualmente.
 
 
 ## Guia de estudos do código

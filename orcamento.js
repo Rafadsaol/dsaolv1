@@ -72,9 +72,25 @@
     // Nenhum dado é enviado por fetch, formulário HTTP, analytics ou armazenamento.
     // Esta abertura só acontece após uma ação explícita do visitante.
     const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-    // Navegação na mesma aba evita depender de permissão para pop-ups.
-    // O visitante ainda precisa confirmar o envio dentro do WhatsApp.
-    window.location.assign(url);
+    // O link permanece disponível se o navegador bloquear a nova aba/janela.
+    // Com noopener/noreferrer, retorno null não confirma bloqueio de pop-up.
+    const retry = document.createElement('a');
+    retry.href = url;
+    retry.target = '_blank';
+    retry.rel = 'noopener noreferrer';
+    retry.className = 'button secondary';
+    retry.textContent = 'Abrir conversa no WhatsApp (nova aba)';
+    feedback.dataset.state = 'info';
+    feedback.replaceChildren(
+      document.createTextNode('Se o WhatsApp não abriu, permita a abertura de novas abas ou use o link abaixo. Revise e confirme o envio no WhatsApp.'),
+      document.createElement('br'), retry
+    );
+    try {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } catch {
+      // Alguns ambientes restritos lançam erro; o link manual continua utilizável.
+      feedback.focus();
+    }
   }
 
   form.addEventListener('submit', (event) => {

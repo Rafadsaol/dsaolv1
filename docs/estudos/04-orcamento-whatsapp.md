@@ -57,7 +57,7 @@ const serviceNames = new Map([
 5. O número comercial é conferido.
 6. Valores são lidos e uma mensagem é montada em memória.
 7. A mensagem é codificada para a URL.
-8. O navegador segue para `wa.me` na mesma aba.
+8. O código solicita a abertura de `wa.me` em uma nova aba ou janela, mantendo o site aberto.
 9. A pessoa ainda precisa confirmar o envio no WhatsApp.
 
 O botão flutuante compartilha a validação do número, mas usa somente uma saudação genérica. Ele não lê os campos para montar essa saudação.
@@ -154,12 +154,16 @@ No código, um array de linhas é unido por `.join('\n')`. `\n` representa quebr
 
 ```js
 const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-window.location.assign(url);
+window.open(url, '_blank', 'noopener,noreferrer');
 ```
 
 `encodeURIComponent` codifica espaços, acentos, quebras e caracteres como `&` para que não sejam confundidos com a estrutura da query string. Não é criptografia.
 
-`location.assign()` navega na mesma aba e normalmente permite voltar ao histórico anterior. Isso remove a dependência de abertura de pop-ups que existia na versão anterior. Não confirma a entrega da mensagem e não controla o comportamento do aplicativo WhatsApp.
+`window.open()` solicita outro contexto de navegação. `_blank` pede uma nova aba/janela; a apresentação final depende do navegador. `noopener` impede acesso ao site de origem por `window.opener`, e `noreferrer` evita o envio do cabeçalho de referência nessa abertura.
+
+O navegador pode bloquear a abertura. O retorno `null` não é prova de bloqueio, pois também pode ocorrer com `noopener/noreferrer`. Por isso a função mantém no feedback um link manual com `target="_blank"` e `rel="noopener noreferrer"`, sem afirmar que a conversa foi aberta ou que a mensagem foi enviada.
+
+O link é criado com `document.createElement('a')`, recebe a URL e é inserido com `replaceChildren()`. Ao alterar um campo, o feedback é limpo e a URL com os dados anteriores sai desse elemento. O `try/catch` mantém essa alternativa disponível mesmo se o ambiente lançar erro ao tentar abrir uma janela. A confirmação do envio continua sendo feita pelo visitante no WhatsApp.
 
 ## Pré-seleção do serviço
 
