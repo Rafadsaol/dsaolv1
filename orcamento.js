@@ -72,9 +72,9 @@
     // Nenhum dado é enviado por fetch, formulário HTTP, analytics ou armazenamento.
     // Esta abertura só acontece após uma ação explícita do visitante.
     const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
-    feedback.dataset.state = 'success';
-    feedback.textContent = 'Revise a mensagem na aba do WhatsApp e confirme o envio por lá. O formulário não envia mensagens automaticamente.';
+    // Navegação na mesma aba evita depender de permissão para pop-ups.
+    // O visitante ainda precisa confirmar o envio dentro do WhatsApp.
+    window.location.assign(url);
   }
 
   form.addEventListener('submit', (event) => {
