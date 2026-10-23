@@ -1,6 +1,6 @@
 # Guia de estudos — dSaOl IT
 
-Este material explica o código atual do projeto, do HTML inicial ao carrinho da loja e ao formulário de orçamento. Ele foi pensado para você ler uma parte, abrir o arquivo correspondente e reconstruir o comportamento em uma cópia de estudo.
+Este material explica o frontend das versões V3/V4 do projeto, do HTML inicial ao carrinho da loja e ao formulário de orçamento. Ele foi pensado para você ler uma parte, abrir o arquivo correspondente e reconstruir o comportamento em uma cópia de estudo.
 
 Não é preciso decorar todos os comandos. O objetivo é conseguir responder: **qual elemento estou alterando, qual dado está mudando e qual ação provoca essa mudança?**
 
@@ -76,3 +76,5 @@ Leia um capítulo, abra o arquivo indicado e localize os seletores ou funções 
 Comece pelo [laboratório em outro ambiente](07-pratica-testes-publicacao.md) se ainda não tiver uma cópia local preparada.
 
 Você pode ler os capítulos diretamente no GitHub ou no VS Code. No editor, abra um `.md` e use **Open Preview** (normalmente Ctrl+Shift+V; no macOS, Cmd+Shift+V) para visualizar a formatação.
+
+A evolução Full Stack V5 está descrita no [README do backend](../../backend/README.md), com autenticação real, banco, painel e o estado dos testes. Os capítulos anteriores permanecem como estudo do frontend estático e devem ser lidos nesse contexto.

@@ -7,6 +7,7 @@
   <title>dSaOl IT — Tecnologia que move negócios</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
+  <script src="solicitacoes.js?v=5" defer></script>
   <script src="config.js?v=20261023-whatsapp-3" defer></script>
   <script src="orcamento.js?v=20261023-whatsapp-3" defer></script>
   <meta property="og:type" content="website">
@@ -91,7 +92,7 @@
           <h2 id="quote-title">Solicite seu <span>orçamento</span></h2>
           <p>Conte o que você precisa. Vamos preparar uma mensagem para iniciar a conversa sobre o seu projeto.</p>
           <ol class="quote-steps"><li>Descreva seu projeto e informe como falar com você.</li><li>Revise a mensagem no WhatsApp.</li><li>Confirme o envio manualmente no WhatsApp.</li></ol>
-          <p class="quote-privacy" id="quote-privacy">Os dados ficam apenas neste formulário até você solicitar a abertura do WhatsApp. Não salvamos os dados em cookies ou no armazenamento do site. Ao abrir o WhatsApp, eles serão incluídos na mensagem preparada para esse serviço.</p>
+          <p class="quote-privacy" id="quote-privacy">No contato pelo WhatsApp, os dados são usados apenas para preparar a mensagem e não são salvos pelo site. O registro no banco do site só ocorre se você autorizar e acionar separadamente a opção de registro, quando disponível. Ao abrir o WhatsApp, os dados serão incluídos na mensagem preparada para esse serviço.</p>
         </div>
         <form class="quote-form" id="quote-form" method="post" autocomplete="off" aria-describedby="quote-privacy">
           <p class="form-intro">Campos com * são obrigatórios.</p>
@@ -109,11 +110,18 @@
           <p class="field-hint">O WhatsApp abrirá em uma nova aba ou janela, mantendo este site aberto. Revise a mensagem e confirme o envio por lá.</p>
           <noscript><p class="field-error">Ative o JavaScript para validar o formulário e preparar a mensagem. Você também pode usar o contato por e-mail abaixo.</p></noscript>
         </form>
+        <section class="backend-contact" id="backend-contact" aria-labelledby="backend-contact-title" hidden>
+          <h3 id="backend-contact-title">Registro opcional no site</h3>
+          <p>Além do WhatsApp, você pode registrar os dados do formulário no banco de dados do site para análise administrativa. Esta ação não envia mensagens pelo WhatsApp.</p>
+          <label for="backend-consent"><input type="checkbox" id="backend-consent"> Autorizo o registro de nome, e-mail, telefone, serviço e descrição no site para atendimento da solicitação.</label>
+          <button type="button" class="button secondary" id="register-request">Registrar solicitação no site</button>
+          <p id="backend-feedback" role="status"></p>
+        </section>
       </div>
     </section>
     <section class="section contact" id="contato" aria-labelledby="contact-title"><div class="container"><div class="contact-panel"><div><p class="eyebrow">VAMOS CONSTRUIR O PRÓXIMO PASSO?</p><h2 id="contact-title">Sua próxima solução<br>começa com uma conversa.</h2><p>Conte o que seu negócio precisa. Vamos pensar nas possibilidades juntos.</p></div><div class="contact-action"><a class="button primary" href="#orcamento">Solicitar orçamento <span aria-hidden="true">↗</span></a><a class="button secondary" id="email-contact" href="mailto:contato@dsaol.it">Enviar um e-mail <span aria-hidden="true">↗</span></a><p>Uma ideia já é um bom começo.</p></div></div></div></section>
   </main>
   <div class="whatsapp-dock"><button class="whatsapp-float" id="whatsapp-floating" type="button" aria-label="Iniciar contato pelo WhatsApp (abre em nova aba)" disabled><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a9 9 0 0 1-13.4 7.9L3 21l1.6-4.6A9 9 0 1 1 21 11.5Z"/><path d="M8 7.5c0 4.5 3 7.5 7.5 8l1-2-2.5-1-1 1a8 8 0 0 1-3-3l1-1-1-2.5Z"/></svg><span>WhatsApp</span></button></div>
-  <footer class="footer"><div class="container footer-content"><a class="footer-brand" href="#inicio">dSaOl IT<span>.</span></a><p>© <span id="year">2026</span> dSaOl IT. Todos os direitos reservados.</p><a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a></div></footer>
+  <footer class="footer"><div class="container footer-content"><a class="footer-brand" href="#inicio">dSaOl IT<span>.</span></a><p>© <span id="year">2026</span> dSaOl IT. Todos os direitos reservados.</p><a id="account-link" href="/auth/login.html" hidden>Área de acesso</a><a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a></div></footer>
 </body>
 </html>

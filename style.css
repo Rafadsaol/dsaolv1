@@ -253,3 +253,6 @@ to{opacity:1;transform:translateY(0)}
 .service-link{margin-top:20px;font-size:12px}
 .contact-action #email-contact{margin-top:12px;width:100%}
 .contact-action>a:first-child{width:100%}
+
+/* Integração V5 independente do envio pelo WhatsApp. */
+.backend-contact{grid-column:1/-1;border:1px solid #405477;border-radius:12px;padding:26px;background:#101a2d}.backend-contact h3{margin-bottom:12px}.backend-contact p,.backend-contact label{font-size:13px;color:#bdcde3}.backend-contact label{display:flex;align-items:flex-start;gap:12px;margin:20px 0}.backend-contact input{width:20px;height:20px;flex-shrink:0;accent-color:var(--blue)}.backend-contact button{cursor:pointer}.backend-contact[hidden]{display:none}.backend-contact button:disabled{opacity:.6}

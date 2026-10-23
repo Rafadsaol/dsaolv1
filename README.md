@@ -1,6 +1,30 @@
 # testeport
 Testando codex portifolio para pagina minha
 
+
+## V5 — Full Stack para estudos (não publicada)
+
+A V5 acrescenta backend Node 24/Express, PostgreSQL/Prisma, autenticação por sessão, painel administrativo e registro opcional de solicitações. O site público permanece em HTML/CSS/JavaScript. Veja os [comandos, arquitetura, testes e pendências da V5](backend/README.md).
+
+**Validação local:** cliente Prisma gerado, migrations aplicadas em bancos separados e 17 testes aprovados com PostgreSQL real. Cadastro, login, logout e CRUD também foram verificados no Chromium com a API real. A V5 é destinada à execução local para estudos, sem deploy; crie seu administrador pelo CLI. SMTP real, HTTPS e testes em celular real permanecem pendentes antes de eventual exposição pública.
+
+### Baixar a V5 pelo Git
+
+No terminal do VS Code, dentro da sua cópia do repositório:
+
+```bash
+git status
+git fetch origin
+git switch --track origin/v5-fullstack
+cd backend
+```
+
+Se houver alterações locais, salve-as em um commit ou uma cópia separada antes de trocar de branch; não use comandos de descarte. Se a branch local `v5-fullstack` já existir, use `git switch v5-fullstack`. Para baixar sem Git, selecione a branch `v5-fullstack` no GitHub e use **Code → Download ZIP**, extraindo em outra pasta.
+
+A pasta `backend` contém o código, mas ainda é necessário instalar Node.js 24 LTS, disponibilizar PostgreSQL (diretamente ou pelo Docker), configurar `backend/.env` a partir do exemplo e seguir o [guia de instalação](backend/README.md). O `.env` da nuvem e os dados do banco não são distribuídos pelo GitHub. GitHub Pages e Live Server não executam a API.
+
+As seções V3/V4 abaixo documentam as versões estáticas anteriores. No modo V5, o backend persiste dados apenas nas funcionalidades de conta/administração e no registro de solicitação expressamente autorizado; o contato por WhatsApp permanece independente.
+
 ## V3 — Portfólio e demonstrações locais
 
 O site usa somente HTML, CSS e JavaScript, sem dependências, build, backend ou APIs externas. Todos os projetos do portfólio são demonstrações fictícias.

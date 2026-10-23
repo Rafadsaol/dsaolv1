@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+}
+enum Role {
+  ADMIN
+  USER
+}
+enum ProjectStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+enum RequestStatus {
+  NEW
+  IN_REVIEW
+  CONTACTED
+  CLOSED
+}
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @db.VarChar(100)
+  email        String   @unique @db.VarChar(254)
+  passwordHash String
+  role         Role     @default(USER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  resetTokens  PasswordResetToken[]
+  @@index([createdAt])
+}
+model Customer {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @db.VarChar(100)
+  email     String   @db.VarChar(254)
+  phone     String?  @db.VarChar(22)
+  company   String?  @db.VarChar(100)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  projects  Project[]
+  @@index([name])
+  @@index([email])
+}
+model Project {
+  id          String @id @default(uuid()) @db.Uuid
+  title       String @db.VarChar(160)
+  description String @db.VarChar(4000)
+  status      ProjectStatus @default(PLANNED)
+  customerId  String @db.Uuid
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([customerId])
+  @@index([status, createdAt])
+}
+model ContactRequest {
+  id             String @id @default(uuid()) @db.Uuid
+  name           String @db.VarChar(100)
+  email          String @db.VarChar(254)
+  phone          String @db.VarChar(22)
+  service        String @db.VarChar(32)
+  message        String @db.VarChar(2000)
+  status         RequestStatus @default(NEW)
+  createdAt      DateTime @default(now())
+  consentedAt    DateTime @default(now())
+  idempotencyKey String @unique @db.Uuid
+  payloadHash    String @db.Char(64)
+  @@index([status, createdAt])
+}
+model Session {
+  sid    String @id @db.VarChar(255)
+  sess   Json
+  expire DateTime @db.Timestamp(6)
+  @@index([expire])
+  @@map("session")
+}
+model PasswordResetToken {
+  id        String @id @default(uuid()) @db.Uuid
+  userId    String @db.Uuid
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String @unique @db.Char(64)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+  @@index([userId, expiresAt])
+}

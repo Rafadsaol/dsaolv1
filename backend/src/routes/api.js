@@ -1,0 +1,44 @@
+import { recordsController } from '../controllers/records.js';
+import { recordsRepository } from '../repositories/records.js';
+import { Router } from 'express';
+import { rateLimit } from 'express-rate-limit';
+import { authController } from '../controllers/auth.js';
+import { csrfToken, requireCsrf, sameOrigin, authentication } from '../middlewares/security.js';
+import { parse, schemas } from '../lib/validation.js';
+import { HttpError } from '../lib/errors.js';
+export function apiRoutes(db, config, authService, admin) {
+  const router = Router(); const c = authController(authService); const records = recordsController(recordsRepository(db), admin); const { requireAuth, requireAdmin } = authentication(db);
+  router.use(sameOrigin(config)); router.use((req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
+  router.get('/health', async (req, res) => { await db.$queryRaw`SELECT 1`; res.json({ data: { status: 'ok' } }); });
+  router.get('/public-config', (req, res) => res.json({ data: { authEnabled: true, contactRequestsEnabled: config.contactsEnabled } }));
+  router.get('/auth/csrf', (req, res) => res.json({ data: { csrfToken: csrfToken(req) } }));
+  router.use(requireCsrf);
+  const limiter = limit => rateLimit({ windowMs: 15 * 60_000, limit, standardHeaders: 'draft-8', legacyHeaders: false, message: { error: { code: 'RATE_LIMITED', message: 'Muitas tentativas. Aguarde e tente novamente.' } } });
+  router.post('/auth/register', limiter(5), c.register); router.post('/auth/login', limiter(10), c.login);
+  router.post('/auth/forgot-password', limiter(5), c.forgot); router.post('/auth/reset-password', limiter(10), c.reset);
+  router.get('/auth/me', requireAuth, (req, res) => res.json({ data: req.user }));
+  router.post('/auth/logout', requireAuth, c.logout);
+  router.post('/contact-requests', limiter(5), async (req, res) => {
+    if (!config.contactsEnabled) throw new HttpError(503, 'Registro de solicitações indisponível. O WhatsApp continua disponível.', 'CONTACTS_DISABLED');
+    const result = await admin.contact(parse(schemas.request, req.body), parse(schemas.id, req.get('Idempotency-Key')));
+    res.status(result.duplicate ? 200 : 201).json({ data: { id: result.id, message: 'Solicitação registrada. Nenhuma mensagem de WhatsApp foi enviada por esta operação.' } });
+  });
+  router.use('/admin', requireAuth, requireAdmin);
+  const q = (req, statuses) => { const value = parse(schemas.pagination, req.query); if (value.status && !statuses?.includes(value.status)) throw new HttpError(400, 'Filtro de status inválido.', 'VALIDATION_ERROR'); return value; };
+  router.get('/admin/dashboard', async (req, res) => res.json({ data: await admin.dashboard() }));
+  router.get('/admin/users', async (req, res) => res.json(await admin.listUsers(q(req))));
+  router.get('/admin/customers', async (req, res) => res.json(await admin.listCustomers(q(req))));
+  router.post('/admin/customers', records.createCustomer);
+  router.get('/admin/customers/:id', records.getCustomer);
+  router.put('/admin/customers/:id', records.updateCustomer);
+  router.delete('/admin/customers/:id', records.deleteCustomer);
+  router.get('/admin/projects', async (req, res) => res.json(await admin.listProjects(q(req, ['PLANNED','IN_PROGRESS','COMPLETED','CANCELLED']))));
+  router.post('/admin/projects', records.createProject);
+  router.get('/admin/projects/:id', records.getProject);
+  router.put('/admin/projects/:id', records.updateProject);
+  router.delete('/admin/projects/:id', records.deleteProject);
+  router.get('/admin/contact-requests', async (req, res) => res.json(await admin.listRequests(q(req, ['NEW','IN_REVIEW','CONTACTED','CLOSED']))));
+  router.patch('/admin/contact-requests/:id', records.updateRequest);
+  router.use((req, res, next) => next(new HttpError(404, 'Endpoint não encontrado.', 'NOT_FOUND')));
+  return router;
+}

@@ -1,0 +1,12 @@
+# Configuração privada e artefatos locais
+.env
+.env.*
+!.env.example
+**/node_modules/
+backend/.data/
+backend/.mail/
+backend/.npm-cache/
+backend/coverage/
+backend/.test-results/
+*.log
+.DS_Store
