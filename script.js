@@ -44,4 +44,39 @@ document.addEventListener('click', (event) => {
   if (!event.target.closest('.nav')) closeMenu();
 });
 
-window.matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
+window.matchMedia('(min-width: 821px)').addEventListener('change', closeMenu);
+
+// Four sections: one scheduled update per frame keeps scroll work small.
+const sectionLinks = [...menu.querySelectorAll('a[href^="#"]')];
+const sections = sectionLinks.map((link) => document.querySelector(link.hash));
+let navigationFrame = null;
+
+function updateActiveSection() {
+  const headerBottom = document.querySelector('.header').getBoundingClientRect().bottom;
+  const anchorOffset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+  let activeIndex = 0;
+  sections.forEach((section, index) => {
+    const sectionOffset = parseFloat(getComputedStyle(section).scrollMarginTop) || 0;
+    if (section.getBoundingClientRect().top <= Math.max(headerBottom + 32, anchorOffset + sectionOffset + 2)) {
+      activeIndex = index;
+    }
+  });
+  // The last section may be too short to reach the header on a tall viewport.
+  if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+    activeIndex = sections.length - 1;
+  }
+  sectionLinks.forEach((link, index) => {
+    if (index === activeIndex) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+  navigationFrame = null;
+}
+
+function scheduleNavigationUpdate() {
+  if (navigationFrame === null) navigationFrame = window.requestAnimationFrame(updateActiveSection);
+}
+
+window.addEventListener('scroll', scheduleNavigationUpdate, { passive: true });
+window.addEventListener('resize', scheduleNavigationUpdate);
+window.addEventListener('load', scheduleNavigationUpdate);
+updateActiveSection();
