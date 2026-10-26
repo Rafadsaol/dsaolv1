@@ -19,6 +19,7 @@ Os trechos identificados como “do projeto” correspondem ao código existente
 | [7. Laboratório e publicação](07-pratica-testes-publicacao.md) | Preparar outro ambiente, exercícios graduais, depuração e GitHub Pages |
 | [8. Glossário](08-glossario.md) | Consulta rápida de termos e símbolos usados no código |
 | [9. Backend V5](09-backend-v5.md) | Terminal, Docker, Node.js, Express, Prisma, PostgreSQL, API, autenticação e segurança |
+| [10. Testes manuais V5](10-testes-manuais-v5.md) | Resultados confirmados no Windows, roteiros para repetir os testes, evidências e pendências |
 
 ## As três camadas do site
 
@@ -79,3 +80,5 @@ Comece pelo [laboratório em outro ambiente](07-pratica-testes-publicacao.md) se
 Você pode ler os capítulos diretamente no GitHub ou no VS Code. No editor, abra um `.md` e use **Open Preview** (normalmente Ctrl+Shift+V; no macOS, Cmd+Shift+V) para visualizar a formatação.
 
 A evolução Full Stack V5 está explicada no [capítulo 9](09-backend-v5.md). O [README do backend](../../backend/README.md) contém instalação, comandos, painel e estado dos testes. Os capítulos 1 a 8 permanecem como estudo do frontend estático e devem ser lidos nesse contexto.
+
+Os testes confirmados pela pessoa usuária no Windows e os casos ainda pendentes estão registrados no [capítulo 10](10-testes-manuais-v5.md), com passos, resultados esperados e distinção entre validação manual e automatizada.
