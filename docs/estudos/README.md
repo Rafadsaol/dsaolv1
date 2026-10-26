@@ -1,6 +1,6 @@
 # Guia de estudos — dSaOl IT
 
-Este material explica o frontend das versões V3/V4 do projeto, do HTML inicial ao carrinho da loja e ao formulário de orçamento. Ele foi pensado para você ler uma parte, abrir o arquivo correspondente e reconstruir o comportamento em uma cópia de estudo.
+Este material explica o frontend das versões V3/V4 e o backend da V5, do HTML inicial ao carrinho da loja, formulário de orçamento, autenticação e banco de dados. Ele foi pensado para você ler uma parte, abrir o arquivo correspondente e reconstruir o comportamento em uma cópia de estudo.
 
 Não é preciso decorar todos os comandos. O objetivo é conseguir responder: **qual elemento estou alterando, qual dado está mudando e qual ação provoca essa mudança?**
 
@@ -18,6 +18,7 @@ Os trechos identificados como “do projeto” correspondem ao código existente
 | [6. Loja e carrinho](06-loja.md) | Catálogo, busca, eventos delegados, dinheiro e localStorage |
 | [7. Laboratório e publicação](07-pratica-testes-publicacao.md) | Preparar outro ambiente, exercícios graduais, depuração e GitHub Pages |
 | [8. Glossário](08-glossario.md) | Consulta rápida de termos e símbolos usados no código |
+| [9. Backend V5](09-backend-v5.md) | Terminal, Docker, Node.js, Express, Prisma, PostgreSQL, API, autenticação e segurança |
 
 ## As três camadas do site
 
@@ -63,9 +64,9 @@ Os arquivos dentro de `docs/estudos/` são documentação em Markdown. Não são
 
 Na landing page, a ordem é `script.js`, `config.js` e `orcamento.js`. O orçamento precisa da configuração antes de atender um clique. Nas demos, o `script.js` carregado é o da própria pasta. As páginas de serviços são estáticas e não precisam carregar esses scripts.
 
-## O que este projeto não possui
+## Escopo do frontend estático V3/V4
 
-Não há framework, processo de build, instalação por npm, backend, autenticação ou banco de dados. O servidor Python usado nos exemplos apenas entrega arquivos por HTTP; ele não processa os orçamentos.
+As versões estáticas V3/V4 não usam framework, processo de build, instalação por npm, backend, autenticação ou banco de dados. O servidor Python usado nos exemplos apenas entrega arquivos por HTTP; ele não processa os orçamentos. A V5 acrescenta backend e banco conforme o capítulo 9.
 
 As demonstrações são fictícias. O formulário prepara uma navegação para o WhatsApp após uma ação do usuário. O envio final é confirmado no próprio WhatsApp.
 
@@ -77,4 +78,4 @@ Comece pelo [laboratório em outro ambiente](07-pratica-testes-publicacao.md) se
 
 Você pode ler os capítulos diretamente no GitHub ou no VS Code. No editor, abra um `.md` e use **Open Preview** (normalmente Ctrl+Shift+V; no macOS, Cmd+Shift+V) para visualizar a formatação.
 
-A evolução Full Stack V5 está descrita no [README do backend](../../backend/README.md), com autenticação real, banco, painel e o estado dos testes. Os capítulos anteriores permanecem como estudo do frontend estático e devem ser lidos nesse contexto.
+A evolução Full Stack V5 está explicada no [capítulo 9](09-backend-v5.md). O [README do backend](../../backend/README.md) contém instalação, comandos, painel e estado dos testes. Os capítulos 1 a 8 permanecem como estudo do frontend estático e devem ser lidos nesse contexto.
