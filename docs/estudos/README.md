@@ -83,3 +83,5 @@ Você pode ler os capítulos diretamente no GitHub ou no VS Code. No editor, abr
 A evolução Full Stack V5 está explicada no [capítulo 9](09-backend-v5.md). O [README do backend](../../backend/README.md) contém instalação, comandos, painel e estado dos testes. Os capítulos 1 a 8 permanecem como estudo do frontend estático e devem ser lidos nesse contexto.
 
 Os testes confirmados pela pessoa usuária no Windows e os casos ainda pendentes estão registrados no [capítulo 10](10-testes-manuais-v5.md), com passos, resultados esperados e distinção entre validação manual e automatizada.
+
+O [capítulo 11](11-link-temporario.md) inclui o registro de funcionamento do link temporário em 26/10/2026, os problemas encontrados e como encerrar e retomar os testes sem recriar o banco.

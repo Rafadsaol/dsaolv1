@@ -181,6 +181,21 @@ Durante o acompanhamento, uma captura também mostrou o WhatsApp aberto com uma 
 
 O comportamento de expiração em 15 minutos, rejeição de reutilização do link, recusa da senha anterior e invalidação de outras sessões não foi confirmado manualmente de forma individual na conversa. Parte dessas condições possui cobertura automatizada, descrita a seguir. Não compartilhe a mensagem local ou o link: ele contém um token de recuperação.
 
+### M08 — Acesso por link temporário HTTPS
+
+**Pré-condição:** cloudflared no Windows, backend local conectado ao PostgreSQL e configuração de origem/proxy correspondente ao túnel.
+
+1. Inicie o backend e, em outro terminal, execute `cloudflared tunnel --url http://127.0.0.1:3000`.
+2. Copie a URL HTTPS gerada para `APP_ORIGIN`, sem barra final, configure `TRUST_PROXY=1` e reinicie somente o backend.
+3. Abra a URL pública e verifique o acesso. Para testar login, use a página `/auth/login.html` dessa mesma origem.
+4. Mantenha os serviços ligados durante o teste; ao encerrar, pare o cloudflared e restaure a origem local conforme o capítulo 11.
+
+**Resultado esperado:** o link encaminha para o servidor local; a autenticação administrativa continua exigida. A existência do túnel não transforma um USER em ADMIN.
+
+**Resultado registrado:** em 26/10/2026, a pessoa usuária apresentou conexão do túnel registrada e confirmou que o acesso funcionou, após resolver uma falha intermediária de inicialização cuja causa não foi relatada. Não houve confirmação individual de todos os fluxos pela URL pública ou de teste por terceiros/outra rede.
+
+Os comandos, diagnóstico e encerramento estão no [capítulo 11](11-link-temporario.md). O endereço temporário e dados privados não são incluídos neste registro.
+
 ## 5. Testes automatizados: evidências separadas
 
 Foram observadas execuções distintas:
@@ -189,8 +204,9 @@ Foram observadas execuções distintas:
 |---|---|
 | Windows da pessoa usuária, antes da melhoria das mensagens do bootstrap | Captura do terminal: **17 testes, 17 aprovados, 0 falhas, 0 ignorados**. |
 | Ambiente na nuvem, após a melhoria do bootstrap | Saída da suíte: **18 testes, 18 aprovados, 0 falhas, 0 ignorados**. |
+| Ambiente na nuvem, após suporte ao túnel HTTPS | Saída posterior da suíte: **19 testes, 19 aprovados, 0 falhas, 0 ignorados**, incluindo sessão Secure com headers de proxy simulados. |
 
-O teste adicional verifica mensagens seguras de diagnóstico do bootstrap. Os números incluem o agrupador da integração; não significam 18 testes manuais independentes. Não houve confirmação de nova execução dos 18 testes no Windows após essa atualização.
+O teste que elevou a contagem a 18 verifica mensagens seguras do bootstrap; o seguinte verifica HTTPS por proxy simulado, sem abrir um túnel real. Os números incluem o agrupador da integração; não representam testes manuais independentes. Não houve confirmação de nova execução das suítes de 18 ou 19 testes no Windows após essas atualizações.
 
 As execuções automatizadas anteriores cobrem cadastro público, login/logout, senha incorreta, bloqueio de USER, CSRF, validação, bootstrap, CRUD, integridade do banco, idempotência de solicitação, persistência após recriar a aplicação e recuperação com expiração e uso único. A cobertura detalhada está em [tests/integration.test.js](../../backend/tests/integration.test.js), [tests/unit.test.js](../../backend/tests/unit.test.js) e [tests/schema.test.js](../../backend/tests/schema.test.js).
 

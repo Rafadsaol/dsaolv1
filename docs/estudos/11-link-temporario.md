@@ -2,6 +2,8 @@
 
 Este roteiro usa **Cloudflare Quick Tunnel** no Windows. O endereço HTTPS encaminha requisições para o Node.js no seu computador. PostgreSQL permanece no Docker local e não precisa ser exposto à internet. Não é uma hospedagem permanente: computador, Docker, backend e túnel precisam permanecer ligados.
 
+**Registro de 26/10/2026:** o cloudflared foi identificado no Windows, o túnel registrou conexão e a pessoa usuária confirmou o funcionamento pelo link temporário. O relato e seus limites estão na seção [Resultado da sessão](#resultado-da-sessão--26102026).
+
 O link é público para quem o conhecer, sem uma lista de convidados configurada por este roteiro. Login e autorização ADMIN continuam sendo exigidos para o painel. Compartilhe apenas com as pessoas escolhidas, por uma janela curta, e use dados fictícios. Tráfego passa pelo serviço Cloudflare.
 
 ## Antes de abrir o túnel
@@ -17,7 +19,7 @@ O link é público para quem o conhecer, sem uma lista de convidados configurada
 Pare o backend com **Ctrl+C**. Gere uma nova senha aleatória para o PostgreSQL usando o comando abaixo. A saída é privada; guarde-a localmente, sem publicá-la:
 
 ```powershell
-node -e "console.log(require('crypto').randomBytes(24).toString('hex'))"
+node -e "console.log(require('crypto').randomBytes(24).toString('hex'))" | Set-Clipboard
 ```
 
 Com Docker Desktop e o serviço PostgreSQL funcionando, na raiz do projeto, entre no console do banco:
@@ -26,20 +28,20 @@ Com Docker Desktop e o serviço PostgreSQL funcionando, na raiz do projeto, entr
 docker compose --env-file backend/.env exec postgres psql -U dsaol_local -d dsaol_dev
 ```
 
-Os nomes acima são os padrões do projeto; ajuste se mudou usuário ou banco. Dentro do console `psql`, execute:
+O comando de geração copia a senha para a área de transferência do Windows, sem imprimi-la. Os nomes acima são os padrões do projeto; ajuste se mudou usuário ou banco. Dentro do console `psql`, execute:
 
 ```text
 \password dsaol_local
 ```
 
-Informe a nova senha e confirme quando solicitado. Depois execute `\q` para sair. O comando interativo evita colocar a senha em argumentos de shell ou SQL escrito no terminal.
+Cole a nova senha com Ctrl+V e confirme quando solicitado. A entrada fica oculta. Depois execute `\q` para sair. O comando interativo evita colocar a senha em argumentos de shell ou SQL escrito no terminal.
 
 Atualize **localmente** `POSTGRES_PASSWORD`, `DATABASE_URL` e `TEST_DATABASE_URL` no `.env` com a mesma nova senha. Não altere os nomes ou portas dos bancos. Se as URLs usam o mesmo usuário, ambas precisam da atualização.
 
 Gere outro segredo independente:
 
 ```powershell
-node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+node -e "console.log(require('crypto').randomBytes(48).toString('hex'))" | Set-Clipboard
 ```
 
 Use-o em `SESSION_SECRET`. Isso invalida o uso dos cookies assinados com o segredo anterior; será necessário entrar novamente. Salve e confirme que o backend conecta ao banco.
@@ -145,11 +147,54 @@ Os dados permanecem no PostgreSQL. Ao criar outro Quick Tunnel, use a nova URL e
 | Origem não permitida | Usar a URL pública exata em `APP_ORIGIN`, sem barra final, e reiniciar Node. |
 | Login perde sessão | Conferir atualização do código, acesso por HTTPS e `TRUST_PROXY=1`; não remover Secure para contornar. |
 | Túnel não cria URL temporária por configuração existente | Consultar Quick Tunnels e configuração existente do cloudflared. Não apagar arquivos de outros túneis. |
+| Backend exibe apenas “Não foi possível iniciar” | Separar diagnóstico de configuração e conexão com o banco, conforme abaixo; a mensagem genérica não identifica a causa. |
+
+### Diagnóstico local sem imprimir credenciais
+
+Execute dentro de `backend`, um comando por vez. O primeiro valida as configurações. As mensagens de `loadConfig` indicam campos ou regras inválidos, sem imprimir seus valores:
+
+```powershell
+node --env-file=.env --input-type=module -e "import {loadConfig} from './src/config/env.js'; try { loadConfig(); console.log('Configuração válida.'); } catch(e) { console.log(e.message); }"
+```
+
+O segundo apenas consulta PostgreSQL e mostra o código de erro, sem exibir a URL de conexão:
+
+```powershell
+node --env-file=.env --input-type=module -e "import pg from 'pg'; const db=new pg.Client({connectionString:process.env.DATABASE_URL,connectionTimeoutMillis:5000}); try { await db.connect(); await db.query('SELECT 1'); console.log('Banco conectado.'); } catch(e) { console.log('Falha no banco. Código:',e.code); } finally { await db.end(); }"
+```
+
+Se aparecer `28P01`, a autenticação no PostgreSQL foi recusada; confira se o usuário e a senha das URLs correspondem ao banco. Esse código não foi informado como resultado da sessão acompanhada e não deve ser tratado como a causa confirmada daquele erro.
+
+## Resultado da sessão — 26/10/2026
+
+| Etapa | Evidência registrada |
+|---|---|
+| Instalação no Windows | A captura de `cloudflared --version` mostrou **2026.10.4**. O winget informou que o pacote já estava instalado e sem atualização disponível. |
+| Configuração privada | Após as orientações de troca dos segredos, a pessoa usuária informou “Salvo”. Os valores não são registrados aqui; o assistente não verificou diretamente o `.env` local. |
+| Conexão do túnel | A saída apresentada mostrou verificações de conectividade aprovadas e `Registered tunnel connection`, usando QUIC. |
+| Endereço público | Foi obtida uma URL HTTPS em `trycloudflare.com`. O endereço não é mantido como link de acesso na documentação porque é temporário e pode deixar de funcionar. |
+| Origem e proxy | Foram orientados `APP_ORIGIN` com a URL HTTPS exata, sem barra final, `TRUST_PROXY=1` e reinício somente do backend, mantendo o túnel aberto. |
+| Falha intermediária | O backend mostrou a mensagem genérica de inicialização. Foram fornecidos os comandos de diagnóstico acima. A pessoa usuária informou ter resolvido; a causa e a alteração exata não foram relatadas. |
+| Resultado final | A pessoa usuária confirmou que funcionou e encerrou a sessão de testes por hoje. |
+
+Essa confirmação registra funcionamento do acesso temporário relatado pela pessoa usuária. Não houve inspeção remota do computador pelo assistente, nem relato detalhado de cada fluxo pela URL pública. Teste em outro dispositivo/rede e resultados de terceiros permanecem sem confirmação específica.
+
+Na preparação do suporte HTTPS, a suíte automatizada na nuvem terminou com **19 testes aprovados, 0 falhas e 0 ignorados**. Isso inclui o teste de proxy simulado descrito abaixo. Nenhum teste da aplicação foi reexecutado para esta atualização de documentação.
 
 ## Alcance da verificação
 
 O teste automatizado acrescentado à integração usa PostgreSQL real e simula headers do proxy via Supertest. Ele verifica cookie Secure, login, sessão, logout e rejeição de outra origem. **Não abre um túnel público nem testa Cloudflare ou Windows.**
 
-A geração da URL, conectividade externa e teste em outro dispositivo dependem da execução local deste roteiro. Um link temporário não comprova disponibilidade permanente nem validação de produção.
+A geração da URL e o funcionamento pelo link foram confirmados pela pessoa usuária na sessão descrita acima. Teste em outro dispositivo/rede e execução por convidados continuam dependendo de confirmação. Um link temporário não comprova disponibilidade permanente nem validação de produção.
+
+### Retomar no próximo dia
+
+1. Abra Docker Desktop e confirme que PostgreSQL está disponível.
+2. No terminal da cópia Git, execute `git pull --ff-only` antes de iniciar, preservando quaisquer alterações locais.
+3. Se estiver voltando ao acesso local, use `APP_ORIGIN=http://127.0.0.1:3000` e `TRUST_PROXY=0`.
+4. Inicie o backend dentro de `backend` com `npm.cmd start`.
+5. Para um novo teste externo, abra outro Quick Tunnel, configure sua nova URL em `APP_ORIGIN`, use `TRUST_PROXY=1` e reinicie o backend.
+
+Não recrie bancos, migrations ou administrador a cada retomada: os registros permanecem no volume PostgreSQL. Não é necessário gerar novos segredos a cada túnel; a troca descrita neste capítulo foi necessária devido à exposição em capturas.
 
 [Voltar ao índice](README.md) · [Backend V5](09-backend-v5.md) · [Testes manuais](10-testes-manuais-v5.md)
