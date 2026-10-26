@@ -43,6 +43,26 @@ test('V5 com PostgreSQL real, sem mocks de autenticação ou Prisma', { timeout:
       assert.match(entered.headers['set-cookie'][0], /HttpOnly/); assert.match(entered.headers['set-cookie'][0], /SameSite=Lax/); assert.equal(entered.body.data.passwordHash, undefined);
       await user.get('/api/v1/auth/me').expect(200); await user.get('/api/v1/admin/dashboard').expect(403); await user.get('/admin/').expect(403);
     });
+    await t.test('HTTPS por proxy confiável mantém sessão Secure no laboratório', async () => {
+      const origin = 'https://tunnel.example.test';
+      const proxyConfig = { ...loadConfig({ ...process.env, NODE_ENV: 'development', APP_ORIGIN: origin, TRUST_PROXY: '1', EMAIL_TRANSPORT: 'file' }), DATABASE_URL: url };
+      const proxyApp = await createApp(proxyConfig);
+      try {
+        // Simula o encaminhamento HTTPS do proxy; não cria um túnel público.
+        const initial = await request(proxyApp).get('/api/v1/auth/csrf').set('X-Forwarded-Proto', 'https').expect(200);
+        assert.match(initial.headers['set-cookie'][0], /; Secure/);
+        const cookie = initial.headers['set-cookie'][0].split(';')[0];
+        const entered = await request(proxyApp).post('/api/v1/auth/login').set('X-Forwarded-Proto', 'https').set('Origin', origin).set('Cookie', cookie).set('X-CSRF-Token', initial.body.data.csrfToken).send({ email, password }).expect(200);
+        assert.match(entered.headers['set-cookie'][0], /; Secure/);
+        const signedIn = entered.headers['set-cookie'][0].split(';')[0];
+        await request(proxyApp).get('/api/v1/auth/me').set('X-Forwarded-Proto', 'https').set('Cookie', signedIn).expect(200);
+        await request(proxyApp).post('/api/v1/auth/login').set('Origin', 'https://other.example.test').set('X-Forwarded-Proto', 'https').send({ email, password }).expect(403);
+        const plain = await request(proxyApp).get('/api/v1/auth/csrf').expect(200);
+        assert.equal(plain.headers['set-cookie'], undefined);
+        await request(proxyApp).post('/api/v1/auth/logout').set('X-Forwarded-Proto', 'https').set('Cookie', signedIn).set('Origin', origin).set('X-CSRF-Token', entered.body.csrfToken).expect(204);
+        await request(proxyApp).get('/api/v1/auth/me').set('X-Forwarded-Proto', 'https').set('Cookie', signedIn).expect(401);
+      } finally { await proxyApp.locals.close(); }
+    });
     await t.test('bootstrap de ADMIN único e listagem sem hash', async () => {
       await bootstrapAdmin(db, { name: 'Administrador Fictício', email: adminEmail, password });
       await assert.rejects(bootstrapAdmin(db, { name: 'Outro Fictício', email: `other-${suffix}@example.test`, password }));

@@ -299,7 +299,7 @@ A sessão fica no PostgreSQL. O cookie contém seu identificador, sem guardar a 
 |---|---|
 | `HttpOnly` | Impede leitura do cookie pelo JavaScript da página. |
 | `SameSite=Lax` | Restringe seu envio em determinados contextos entre sites. |
-| `Secure` em produção | Exige HTTPS para enviar o cookie. |
+| `Secure` quando `APP_ORIGIN` usa HTTPS | Exige HTTPS para enviar o cookie, inclusive no laboratório com proxy configurado. |
 | Validade de oito horas | Limite configurado para o cookie. |
 
 No logout, o servidor destrói a sessão e limpa o cookie. O cadastro público cria somente `USER`. O primeiro `ADMIN` é criado pelo comando interativo de bootstrap, sem credenciais administrativas fixas.

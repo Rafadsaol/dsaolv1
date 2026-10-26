@@ -25,7 +25,7 @@ export async function createApp(config) {
   app.use(helmet({ contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'"], styleSrc: ["'self'"], imgSrc: ["'self'", 'data:'], connectSrc: ["'self'"], objectSrc: ["'none'"], frameAncestors: ["'none'"], upgradeInsecureRequests: config.production ? [] : null } }, referrerPolicy: { policy: 'no-referrer' }, strictTransportSecurity: config.production ? undefined : false }));
   app.use(express.json({ limit: '16kb', type: 'application/json' }));
   app.use(session({ name: 'dsaol.sid', secret: config.SESSION_SECRET, store, resave: false, saveUninitialized: false,
-    cookie: { httpOnly: true, secure: config.production, sameSite: 'lax', maxAge: 8 * 60 * 60_000, path: '/' } }));
+    cookie: { httpOnly: true, secure: config.secureCookies, sameSite: 'lax', maxAge: 8 * 60 * 60_000, path: '/' } }));
   const auth = await createAuthService(db, createMailer(config));
   app.use('/api/v1', rateLimit({ windowMs: 15 * 60_000, limit: 300, standardHeaders: 'draft-8', legacyHeaders: false,
     message: { error: { code: 'RATE_LIMITED', message: 'Muitas requisições. Tente novamente mais tarde.' } } }), apiRoutes(db, config, auth, adminService(db)));

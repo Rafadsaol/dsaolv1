@@ -20,6 +20,7 @@ export function loadConfig(env = process.env) {
     throw new Error('Produção requer HTTPS e entrega SMTP configurada.');
   }
   return { ...c, production: c.NODE_ENV === 'production', trustProxy: c.TRUST_PROXY === '1' ? 1 : false,
+    secureCookies: origin.protocol === 'https:',
     contactsEnabled: c.CONTACT_REQUESTS_ENABLED === 'true',
     smtp: { host: env.SMTP_HOST, port: Number(env.SMTP_PORT || 587), secure: env.SMTP_SECURE === 'true',
       user: env.SMTP_USER, password: env.SMTP_PASSWORD, from: env.MAIL_FROM } };

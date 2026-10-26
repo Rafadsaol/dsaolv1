@@ -6,7 +6,7 @@ Testando codex portifolio para pagina minha
 
 A V5 acrescenta backend Node 24/Express, PostgreSQL/Prisma, autenticação por sessão, painel administrativo e registro opcional de solicitações. O site público permanece em HTML/CSS/JavaScript. Veja os [comandos, arquitetura, testes e pendências da V5](backend/README.md).
 
-**Validação local:** cliente Prisma gerado, migrations aplicadas em bancos separados e 18 testes aprovados com PostgreSQL real. Cadastro, login, logout e CRUD também foram verificados no Chromium com a API real. A V5 é destinada à execução local para estudos, sem deploy; crie seu administrador pelo CLI. SMTP real, HTTPS e testes em celular real permanecem pendentes antes de eventual exposição pública.
+**Validação local:** cliente Prisma gerado, migrations aplicadas em bancos separados e 19 testes aprovados com PostgreSQL real. Cadastro, login, logout e CRUD também foram verificados no Chromium com a API real. A V5 é destinada à execução local para estudos, sem deploy; crie seu administrador pelo CLI. SMTP real, HTTPS e testes em celular real permanecem pendentes antes de eventual exposição pública.
 
 ### Baixar a V5 pelo Git
 

@@ -9,7 +9,7 @@ Esta versão acrescenta API Express, PostgreSQL, Prisma e interfaces administrat
 - Oito testes unitários aprovados: Argon2id, entradas, CSRF, origens, configuração e mensagens seguras do bootstrap.
 - SQL da migration validado em PostgreSQL real, dentro de um schema temporário e transação desfeita. Foram verificados hash obrigatório, unicidade, enum, índices e integridade referencial.
 - Download oficial liberado após configurar `binaries.prisma.sh`; cliente Prisma 7.10.1 gerado sem desativar TLS ou checksum. Migration aplicada pela CLI aos bancos separados `dsaol_dev` e `dsaol_test`.
-- `npm test`: **18 testes aprovados, nenhum falhou ou foi ignorado** (incluindo o agrupador da integração). Os cenários reais cobrem cadastro, login/logout, senha incorreta, CSRF, permissões, bootstrap, CRUD, integridade referencial, idempotência, persistência após recriar a aplicação e recuperação de senha local com expiração e uso único.
+- `npm test`: **19 testes aprovados, nenhum falhou ou foi ignorado** (incluindo o agrupador da integração). Os cenários reais cobrem cadastro, login/logout, senha incorreta, CSRF, permissões, bootstrap, CRUD, integridade referencial, idempotência, persistência após recriar a aplicação e recuperação de senha local com expiração e uso único.
 - Interfaces verificadas no Chromium em 360, 768 e 1440 px com respostas isoladas de teste: layout, consentimento separado, montagem da solicitação e indisponibilidade da API. Esses testes não substituem autenticação nem persistência reais.
 - Depois da liberação, Chromium também executou cadastro, login USER/ADMIN, logout e criação/exclusão de cliente e projeto com API, Prisma e PostgreSQL reais, usando contas fictícias descartadas ao final. Sem rolagem horizontal nas páginas verificadas em 360/768/1440 px e sem erros JavaScript/CSP observados. Não foram enviadas mensagens ao WhatsApp.
 - `npm start` e `GET /api/v1/health` verificados com banco de desenvolvimento real. Nenhum administrador permanente foi criado; inicialize o seu pelo CLI interativo.
@@ -149,6 +149,8 @@ Ou, sem watch:
 npm start
 ```
 
+Para compartilhar temporariamente pelo computador, siga o [roteiro de cloudflared](../docs/estudos/11-link-temporario.md). A origem pública precisa ser configurada antes do login, e o proxy HTTPS foi verificado em teste automatizado; o túnel real depende de execução local.
+
 O mesmo servidor entrega frontend e API. Acesse a raiz na origem configurada. Login: `/auth/login.html`; cadastro: `/auth/register.html`; recuperação: `/auth/forgot.html`; painel: `/admin/`. Usuários USER podem autenticar, consultar a própria sessão e sair, mas não acessar dados administrativos.
 
 A navegação do painel usa `/admin/#dashboard`, `#customers`, `#projects`, `#requests` e `#users`. A página HTML e seus recursos passam pelos middlewares de sessão e ADMIN; as APIs repetem essas verificações.
@@ -221,7 +223,7 @@ npm test
 
 - Unidade: validação, hash Argon2id, tokens, middleware CSRF, origem e requisitos de produção.
 - Schema: aplica o SQL em schema temporário dentro de uma transação no banco `_test`, verifica restrições e desfaz somente o que criou.
-- Integração: exige Prisma e PostgreSQL reais. Exercita cadastro/login/logout, senha errada, USER bloqueado, CSRF, bootstrap, CRUD, FK, paginação, solicitação idempotente, sessões após reiniciar a aplicação, recuperação/expiração/uso único e rate limiting.
+- Integração: exige Prisma e PostgreSQL reais. Exercita cadastro/login/logout, senha errada, USER bloqueado, CSRF, bootstrap, CRUD, FK, paginação, solicitação idempotente, sessões após reiniciar a aplicação, cookies Secure e login por proxy HTTPS simulado, recuperação/expiração/uso único e rate limiting.
 - A suíte integrada exige que não exista administrador anterior no banco dedicado de testes. Ela cria e remove suas próprias contas/registros fictícios e não faz reset/truncate do banco.
 - Teste manual: navegue pelas sete páginas públicas e demos, abra login/cadastro/recuperação, entre com ADMIN local, faça CRUD e atualize solicitações. Confira Tab/Shift+Tab, diálogos, erros, carregamento e larguras 360/768/1440 px. Para WhatsApp automatizado, intercepte a abertura e use somente dados fictícios, sem enviar mensagens.
 
@@ -229,7 +231,7 @@ npm test
 
 - A validação local passou, mas não substitui revisão para exposição pública. Permanecem pendentes entrega real de e-mail via SMTP, configuração HTTPS e teste em celular real. O serviço de bootstrap foi validado com PostgreSQL real; o CLI também foi exercitado em terminal PTY Linux para senha curta e confirmação diferente, sem exibir as senhas. O comportamento interativo no Windows ainda depende de verificação local.
 - Rate limiting usa memória do processo: reinicia com ele e não coordena múltiplas instâncias. Para exposição pública, um armazenamento compartilhado e revisão do proxy seriam necessários.
-- Produção exige HTTPS, `NODE_ENV=production`, segredo forte e SMTP real. Cookies tornam-se Secure; configure `TRUST_PROXY=1` somente atrás de um proxy confiável de um salto. Não confie em headers encaminhados de origens arbitrárias.
+- Produção exige HTTPS, `NODE_ENV=production`, segredo forte e SMTP real. Cookies são Secure sempre que APP_ORIGIN usa HTTPS; configure `TRUST_PROXY=1` somente atrás de um proxy confiável de um salto. Não confie em headers encaminhados de origens arbitrárias.
 - CORS admite somente `APP_ORIGIN`. Não há token de sessão/senha em localStorage. A origem deve ser exata.
 - O volume Docker local não é uma estratégia de backup. Planeje permissões, retenção, backups e recuperação antes de qualquer uso com dados reais.
 - Respostas de recuperação são genéricas; o laboratório não inclui infraestrutura de e-mail transacional, fila ou operação de múltiplas instâncias.
