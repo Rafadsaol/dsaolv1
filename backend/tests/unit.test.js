@@ -8,6 +8,7 @@ import { loadConfig } from '../src/config/env.js';
 import { hashPassword, verifyPassword, randomToken, hashToken } from '../src/services/passwords.js';
 import { requireCsrf, sameOrigin } from '../src/middlewares/security.js';
 import { errorHandler } from '../src/lib/errors.js';
+import { bootstrapFeedback } from '../src/lib/bootstrap-feedback.js';
 test('Argon2id verifica senha e rejeita senha diferente', async () => {
   const secret = randomBytes(24).toString('hex'), hash = await hashPassword(secret);
   assert.ok(hash.startsWith('$argon2id$')); assert.notEqual(hash, secret); assert.equal(await verifyPassword(hash, secret), true); assert.equal(await verifyPassword(hash, 'senha-ficticia-incorreta'), false);
@@ -39,4 +40,17 @@ test('origens arbitrárias não recebem acesso com credenciais', async () => {
 });
 test('produção exige HTTPS e SMTP em vez de transporte de arquivo', () => {
   assert.throws(() => loadConfig({ NODE_ENV: 'production', APP_ORIGIN: 'http://127.0.0.1:3000', DATABASE_URL: 'postgresql://example', SESSION_SECRET: randomToken(), EMAIL_TRANSPORT: 'file' }));
+});
+test('bootstrap informa a causa local sem imprimir entrada, senha ou erro interno', () => {
+  let invalid;
+  try { parse(schemas.signup, { name: 'Pessoa Fictícia', email: 'invalido', password: 'curta' }); } catch (error) { invalid = error; }
+  const feedback = bootstrapFeedback(invalid);
+  assert.match(feedback, /e-mail válido/); assert.match(feedback, /12 e 128/);
+  assert.match(bootstrapFeedback({ code: 'PASSWORD_CONFIRMATION' }), /não coincidem/);
+  assert.match(bootstrapFeedback({ code: 'ADMIN_EXISTS' }), /Já existe um administrador/);
+  assert.match(bootstrapFeedback({ code: 'P2002' }), /e-mail já está cadastrado/);
+  assert.match(bootstrapFeedback({ code: 'P2021' }), /db:migrate/);
+  assert.match(bootstrapFeedback({ code: 'P1001' }), /conectar ao banco/);
+  const secret = randomToken();
+  for (const error of [{ message: secret }, { code: 'VALIDATION_ERROR', fields: [{ field: 'password', message: secret }] }, { code: 'P2002', message: secret }]) assert.equal(bootstrapFeedback(error).includes(secret), false);
 });

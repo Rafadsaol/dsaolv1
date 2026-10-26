@@ -6,10 +6,10 @@ Esta versão acrescenta API Express, PostgreSQL, Prisma e interfaces administrat
 
 - Node 24.19.0 e npm 11.9.0 disponíveis; dependências instaladas e fixadas em `package-lock.json`.
 - PostgreSQL 17 iniciado em Docker e conexão real verificada.
-- Sete testes unitários aprovados: Argon2id, entradas, CSRF, origens e configuração.
+- Oito testes unitários aprovados: Argon2id, entradas, CSRF, origens, configuração e mensagens seguras do bootstrap.
 - SQL da migration validado em PostgreSQL real, dentro de um schema temporário e transação desfeita. Foram verificados hash obrigatório, unicidade, enum, índices e integridade referencial.
 - Download oficial liberado após configurar `binaries.prisma.sh`; cliente Prisma 7.10.1 gerado sem desativar TLS ou checksum. Migration aplicada pela CLI aos bancos separados `dsaol_dev` e `dsaol_test`.
-- `npm test`: **17 testes aprovados, nenhum falhou ou foi ignorado** (incluindo o agrupador da integração). Os cenários reais cobrem cadastro, login/logout, senha incorreta, CSRF, permissões, bootstrap, CRUD, integridade referencial, idempotência, persistência após recriar a aplicação e recuperação de senha local com expiração e uso único.
+- `npm test`: **18 testes aprovados, nenhum falhou ou foi ignorado** (incluindo o agrupador da integração). Os cenários reais cobrem cadastro, login/logout, senha incorreta, CSRF, permissões, bootstrap, CRUD, integridade referencial, idempotência, persistência após recriar a aplicação e recuperação de senha local com expiração e uso único.
 - Interfaces verificadas no Chromium em 360, 768 e 1440 px com respostas isoladas de teste: layout, consentimento separado, montagem da solicitação e indisponibilidade da API. Esses testes não substituem autenticação nem persistência reais.
 - Depois da liberação, Chromium também executou cadastro, login USER/ADMIN, logout e criação/exclusão de cliente e projeto com API, Prisma e PostgreSQL reais, usando contas fictícias descartadas ao final. Sem rolagem horizontal nas páginas verificadas em 360/768/1440 px e sem erros JavaScript/CSP observados. Não foram enviadas mensagens ao WhatsApp.
 - `npm start` e `GET /api/v1/health` verificados com banco de desenvolvimento real. Nenhum administrador permanente foi criado; inicialize o seu pelo CLI interativo.
@@ -131,7 +131,7 @@ Após gerar o cliente e aplicar migrations:
 npm run admin:bootstrap
 ```
 
-Execute em um terminal interativo. Informe nome, e-mail, senha de pelo menos 12 caracteres e confirmação. A entrada da senha é ocultada; não use argumentos de shell nem variáveis de ambiente para a senha administrativa.
+Execute em um terminal interativo. Informe nome, e-mail, senha de pelo menos 12 caracteres e confirmação. A entrada da senha é ocultada; não use argumentos de shell nem variáveis de ambiente para a senha administrativa. O CLI distingue senha fora de 12–128 caracteres, confirmação diferente, campos inválidos, administrador existente e conflitos de e-mail, sem imprimir valores privados ou detalhes internos. Para erros não classificados, orienta conferir a configuração e executar os testes.
 
 O comando adquire um lock transacional e recusa criar outro administrador quando já existe um. Cadastro público sempre gera `USER` e rejeita o campo `role`; não há endpoint de promoção de privilégios.
 
@@ -227,7 +227,7 @@ npm test
 
 ## Limitações e cuidados do laboratório
 
-- A validação local passou, mas não substitui revisão para exposição pública. Permanecem pendentes entrega real de e-mail via SMTP, configuração HTTPS e teste em celular real. O bootstrap foi validado pelo serviço chamado pelo CLI; a digitação interativa do administrador deve ser feita por quem utilizar o laboratório.
+- A validação local passou, mas não substitui revisão para exposição pública. Permanecem pendentes entrega real de e-mail via SMTP, configuração HTTPS e teste em celular real. O serviço de bootstrap foi validado com PostgreSQL real; o CLI também foi exercitado em terminal PTY Linux para senha curta e confirmação diferente, sem exibir as senhas. O comportamento interativo no Windows ainda depende de verificação local.
 - Rate limiting usa memória do processo: reinicia com ele e não coordena múltiplas instâncias. Para exposição pública, um armazenamento compartilhado e revisão do proxy seriam necessários.
 - Produção exige HTTPS, `NODE_ENV=production`, segredo forte e SMTP real. Cookies tornam-se Secure; configure `TRUST_PROXY=1` somente atrás de um proxy confiável de um salto. Não confie em headers encaminhados de origens arbitrárias.
 - CORS admite somente `APP_ORIGIN`. Não há token de sessão/senha em localStorage. A origem deve ser exata.
@@ -269,6 +269,7 @@ backend/src/config/env.js
 backend/src/controllers/auth.js
 backend/src/controllers/records.js
 backend/src/lib/errors.js
+backend/src/lib/bootstrap-feedback.js
 backend/src/lib/validation.js
 backend/src/middlewares/security.js
 backend/src/repositories/db.js
