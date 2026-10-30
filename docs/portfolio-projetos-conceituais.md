@@ -6,7 +6,7 @@ Integração de materiais dos repositórios fornecidos pela pessoa usuária. Amb
 
 - Cards na página inicial com imagens existentes, descrição, tecnologias e botões **Conhecer projeto** e **Ver código no GitHub**.
 - Estudos de caso locais em `projetos/linha-tenue/index.html` e `projetos/cidade-do-sabor/index.html`.
-- Galerias com 14 capturas originais, copiadas sem edição dos repositórios. Os dados nas imagens são demonstrativos. As capturas podem ser ampliadas em nova aba.
+- Preservadas as 14 capturas originais dos repositórios. A galeria de Cidade do Sabor usa agora uma nova captura da seção mobile com as margens reais da página; o arquivo anterior foi mantido. Os dados nas imagens são demonstrativos, e as capturas podem ser ampliadas em nova aba.
 - Imagens como apresentação principal. Dois clipes secundários, gravados das aplicações originais no Chromium: Linha Tênue alterna frente/acabamento de uma camiseta (8,24 s, 342 × 578, cerca de 92 KiB); Cidade do Sabor alterna os hambúrgueres da vitrine (7,60 s, 1360 × 804, cerca de 1,27 MiB). MP4/H.264 sem áudio. Os vídeos anteriores de passeio completo foram preservados nos arquivos, mas não são carregados nem referenciados pelas páginas.
 - Legendas WebVTT e descrição textual acessível da interação, ao lado de cada clipe. Os controles mostrados no vídeo pertencem à gravação; os controles do player permitem reproduzir e pausar.
 - Reprodução automática sem som quando pelo menos 25% do vídeo está visível. O vídeo pausa fora da tela ou quando a aba fica oculta. A pausa manual é preservada; quem prefere movimento reduzido recebe reprodução manual.
@@ -112,3 +112,11 @@ projetos/cidade-do-sabor/imagens/troca-hamburguer-poster.png
 ```
 
 A alteração no backend apenas permite PNG na pasta pública `assets`, mantendo a lista de extensões permitidas e o bloqueio de arquivos internos. Não houve alteração de autenticação, schema, migrations, formulários ou configuração comercial. A revisão atual está registrada também no [capítulo 12 de estudos](estudos/12-identidade-e-clipes.md).
+
+### Refinamento das molduras de celular
+
+As duas capturas móveis de Cidade do Sabor passaram a compartilhar um aparelho com bordas finas, tela maior, câmera e indicador inferior fora da área de conteúdo. A tela mantém rolagem por mouse/toque/teclado e ampliação por link. O foco visível foi levado ao contorno externo, sem desenhar um retângulo azul sobre a captura.
+
+A imagem `imagens/favoritos-mobile-contexto.png` é uma captura real complementar feita no Chromium: viewport 390 × 844, escala 2, imagem 780 × 2056. A seção foi registrada com a largura completa de 390 px, incluindo as margens originais, em vez de apenas o conteúdo recortado. Não houve montagem ou alteração dos pixels da captura original. O novo arquivo e seu SHA-256 estão registrados em `supplemental_captures` de `docs/portfolio-fontes.json`.
+
+Nesta revisão foram modificados `projetos/cases.css`, `projetos/cidade-do-sabor/index.html`, as versões de CSS em `index.html`, `projetos/linha-tenue/index.html` e `404.html`, os registros de fontes e esta documentação. O site, contatos e backend foram preservados. O pacote gerado passou a ter 58 arquivos e 7,37 MiB.

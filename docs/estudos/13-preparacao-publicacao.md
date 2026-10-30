@@ -56,3 +56,13 @@ Atualize a cópia do Git pelo procedimento habitual. Com o backend local já con
 ## Próxima decisão
 
 O [roteiro de publicação](../publicacao.md) separa dois caminhos: portfólio estático com WhatsApp ou aplicação completa com backend e painel. É preciso confirmar o caminho, o domínio/hospedagem e o e-mail real antes de configurar a publicação. Nada foi contratado, exposto publicamente ou removido.
+
+## Refinamento posterior da moldura
+
+A versão atual usa `.case-phone-display` com uma grade de três linhas: câmera, área rolável e indicador inferior. `minmax(0, 1fr)` permite que a área central ocupe o espaço restante sem aumentar o aparelho até a altura completa da imagem. `.case-phone-screen` mantém `min-height: 0` e rolagem nativa.
+
+A moldura possui uma borda fina e máximo de 326 px. Os pseudo-elementos do corpo agora representam os botões laterais; câmera e barra inferior pertencem a elementos decorativos próprios, com `aria-hidden="true"`. Eles não sobrepõem a captura. O seletor `:has(:focus-visible)` indica o foco de teclado no contorno externo; a regra de foco da região permanece como alternativa para navegadores sem suporte.
+
+A captura anterior do cardápio havia sido recortada sem as margens da página. Uma nova captura real no Chromium, `favoritos-mobile-contexto.png`, inclui essas margens e conserva o arquivo anterior. Isso melhora o espaçamento sem precisar reduzir artificialmente a imagem dentro de uma borda larga. A origem e o hash estão em `docs/portfolio-fontes.json`.
+
+A apresentação e o pacote estático foram novamente conferidos no Chromium em 360, 768 e 1440 px. Veja os detalhes atualizados no [guia de publicação](../publicacao.md).

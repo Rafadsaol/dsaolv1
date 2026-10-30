@@ -20,7 +20,7 @@ O e-mail informado configura o link `mailto:`. Isso não configura envio de e-ma
 
 ## Por que Cloudflare Pages
 
-A documentação oficial consultada em 30/10/2026 confirma um plano gratuito para sites estáticos com domínio próprio. Os limites publicados incluem 500 builds por mês, 20.000 arquivos e 25 MiB por arquivo. O pacote atual tem **57 arquivos, cerca de 6,95 MiB no total e maior arquivo de 1,27 MiB**. Não utiliza Functions, banco ou serviços pagos da Cloudflare.
+A documentação oficial consultada em 30/10/2026 confirma um plano gratuito para sites estáticos com domínio próprio. Os limites publicados incluem 500 builds por mês, 20.000 arquivos e 25 MiB por arquivo. O pacote atual tem **58 arquivos, cerca de 7,37 MiB no total e maior arquivo de 1,27 MiB**. Não utiliza Functions, banco ou serviços pagos da Cloudflare.
 
 A renovação do domínio continua sendo feita no Registro.br; hospedagem gratuita não elimina essa cobrança do domínio. O domínio pode continuar registrado lá mesmo usando DNS da Cloudflare.
 
@@ -108,7 +108,7 @@ As nove páginas públicas receberam canonical e og:url com a origem real. `site
 - Link `mailto:rafadsaol@outlook.com` conferido. Não houve teste de envio ou recebimento de e-mail.
 - No pacote, nenhuma consulta automática à API, nenhuma interface administrativa exportada, nenhuma persistência dos dados pessoais preenchidos no formulário e nenhuma criação de cookie observada.
 - Dez HTMLs do pacote e 166 referências locais válidos; XML do sitemap válido. MP4 com requisições Range HTTP 206; arquivos privados indisponíveis no servidor local do pacote.
-- Empacotador executado novamente com sucesso; arquivos inesperados e links simbólicos foram recusados antes de alterar a saída. Build de uma árvore Git limpa, sem `.env`, `node_modules`, instalação ou banco, gerou os mesmos 57 arquivos com hashes idênticos. Sintaxe dos 38 arquivos JavaScript/MJS e `git diff --check` aprovadas.
+- Empacotador executado novamente com sucesso; arquivos inesperados e links simbólicos foram recusados antes de alterar a saída. Build de uma árvore Git limpa, sem `.env`, `node_modules`, instalação ou banco, gerou os mesmos 58 arquivos com hashes idênticos. Sintaxe dos 38 arquivos JavaScript/MJS e `git diff --check` aprovadas.
 
 Ainda não foram testados Cloudflare real, DNS, HTTPS público, Safari, Firefox ou celular físico. A revisão local não significa que o site já está no ar. A publicação não hospeda Linha Tênue e Cidade do Sabor como aplicações completas: apresenta suas imagens e clipes existentes.
 
@@ -123,3 +123,13 @@ Modificados: `.gitignore`, `config.js`, `script.js`, `index.html`, os cinco `pro
 Criados: `publicacao.config.json`, `robots.txt`, `sitemap.xml`, `404.html`, `scripts/preparar-site-publico.mjs`, `deploy/cloudflare/_headers`, `docs/estudos/14-cloudflare-dominio-contato.md`.
 
 Gerados e ignorados pelo Git: `dist/site/` e `dist/.site-public-build`. O pacote é reproduzido pelo comando de build; não precisa ser enviado como código-fonte ao GitHub.
+
+## Revisão visual das molduras — 30/10/2026
+
+A demonstração móvel de Cidade do Sabor recebeu um novo acabamento: corpo de 326 px no máximo, bordas finas, câmera e barra inferior separadas da área rolável e foco de teclado no contorno externo. O conteúdo deixou de usar o grande preenchimento que reduzia a tela anterior. As duas capturas usam a mesma proporção de aparelho.
+
+A nova imagem `projetos/cidade-do-sabor/imagens/favoritos-mobile-contexto.png` foi capturada no Chromium da aplicação original, preservando a largura completa da página e suas margens. O arquivo antigo foi mantido. Origem, resolução e SHA-256 estão em `supplemental_captures` de `docs/portfolio-fontes.json`.
+
+A revisão foi conferida visualmente no Chromium em 360, 768 e 1440 px, incluindo rolagem interna, teclado e ampliação. O pacote estático foi regenerado e passou novamente nos testes de navegação, contato e mídia. Os 19 testes do backend referidos acima são da preparação anterior; não houve alteração do backend nesta revisão visual.
+
+Para manter a publicação em pausa, o commit desta revisão usa o prefixo `[CF-Pages-Skip]`, documentado pela [Cloudflare para omitir o deploy de um commit](https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/#skipping-a-build-via-a-commit-message). Ele permite atualizar os fontes no GitHub sem disparar um deploy da integração Git do Pages para esse commit. Nenhuma configuração de DNS ou hospedagem foi alterada.

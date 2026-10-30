@@ -158,6 +158,24 @@
         "Pedido de teste: nenhum envio ao restaurante ou pagamento real.",
         "Perfil Administrador Demo: acesso fictício, sem autenticação real."
       ]
-    }
+    },
+    "supplemental_captures": [
+      {
+        "file": "imagens/favoritos-mobile-contexto.png",
+        "source_page": "Página inicial / seção #favoritos na aplicação original",
+        "source_commit": "5f1bd0366b59c5f2cce195578a304edfa3a53335",
+        "sha256": "18d5439ba54bae6fc2f0437a76cb92da18b9c5f695a5792c6d51bf38f779f366",
+        "viewport": [
+          390,
+          844
+        ],
+        "device_scale_factor": 2,
+        "resolution": [
+          780,
+          2056
+        ],
+        "method": "Captura real no Chromium da seção favoritos com a largura completa da página, preservando as margens originais."
+      }
+    ]
   }
 ]
