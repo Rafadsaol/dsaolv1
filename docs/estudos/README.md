@@ -21,6 +21,7 @@ Os trechos identificados como “do projeto” correspondem ao código existente
 | [9. Backend V5](09-backend-v5.md) | Terminal, Docker, Node.js, Express, Prisma, PostgreSQL, API, autenticação e segurança |
 | [10. Testes manuais V5](10-testes-manuais-v5.md) | Resultados confirmados no Windows, roteiros para repetir os testes, evidências e pendências |
 | [11. Link temporário](11-link-temporario.md) | Compartilhar o laboratório pelo cloudflared, configurar origem HTTPS e encerrar o acesso |
+| [12. Identidade e clipes](12-identidade-e-clipes.md) | Aplicar a logo, entender o favicon O e apresentar projetos com imagens e clipes curtos |
 
 ## As três camadas do site
 

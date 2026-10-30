@@ -7,8 +7,8 @@ Integração de materiais dos repositórios fornecidos pela pessoa usuária. Amb
 - Cards na página inicial com imagens existentes, descrição, tecnologias e botões **Conhecer projeto** e **Ver código no GitHub**.
 - Estudos de caso locais em `projetos/linha-tenue/index.html` e `projetos/cidade-do-sabor/index.html`.
 - Galerias com 14 capturas originais, copiadas sem edição dos repositórios. Os dados nas imagens são demonstrativos. As capturas podem ser ampliadas em nova aba.
-- Dois vídeos gravados das aplicações originais em execução no Chromium: Linha Tênue com aproximadamente 31 segundos e Cidade do Sabor com aproximadamente 28 segundos. São arquivos MP4/H.264 de 1280 × 800, sem áudio, com menos de 0,5 MiB cada.
-- Legendas WebVTT e roteiro textual acessível para acompanhar as etapas.
+- Imagens como apresentação principal. Dois clipes secundários, gravados das aplicações originais no Chromium: Linha Tênue alterna frente/acabamento de uma camiseta (8,24 s, 342 × 578, cerca de 92 KiB); Cidade do Sabor alterna os hambúrgueres da vitrine (7,60 s, 1360 × 804, cerca de 1,27 MiB). MP4/H.264 sem áudio. Os vídeos anteriores de passeio completo foram preservados nos arquivos, mas não são carregados nem referenciados pelas páginas.
+- Legendas WebVTT e descrição textual acessível da interação, ao lado de cada clipe. Os controles mostrados no vídeo pertencem à gravação; os controles do player permitem reproduzir e pausar.
 - Reprodução automática sem som quando pelo menos 25% do vídeo está visível. O vídeo pausa fora da tela ou quando a aba fica oculta. A pausa manual é preservada; quem prefere movimento reduzido recebe reprodução manual.
 - Controles nativos, download e poster. `preload="none"` evita antecipar o carregamento; a reprodução automática, quando permitida, inicia o carregamento ao entrar na área visível. Se autoplay for bloqueado, os controles continuam disponíveis.
 
@@ -21,19 +21,19 @@ O site principal continua usando HTML, CSS e JavaScript. Nenhuma dependência Re
 | Linha Tênue | https://github.com/Rafadsaol/linhatenuev1 | `7195ed57368d15d2a1d64293feca4a1c2ba70326` |
 | Cidade do Sabor | https://github.com/Rafadsaol/cidadedosaborv1 | `5f1bd0366b59c5f2cce195578a304edfa3a53335` |
 
-O arquivo [portfolio-fontes.json](portfolio-fontes.json) registra as origens e SHA-256 das 14 capturas, além de duração, resolução, etapas e SHA-256 dos vídeos. Os hashes permitem identificar os materiais usados nesta versão; mudanças futuras nos repositórios não atualizam estas cópias automaticamente.
+O arquivo [portfolio-fontes.json](portfolio-fontes.json) registra as origens e SHA-256 das 14 capturas, além de duração, resolução, interações e SHA-256 dos clipes atuais. O campo `archived_video` registra os vídeos anteriores, preservados sem referência nas páginas. Os hashes permitem identificar os materiais usados nesta versão; mudanças futuras nos repositórios não atualizam estas cópias automaticamente.
 
 ### Linha Tênue
 
 O manifesto, o código e a documentação confirmam React 19, Vite 6, JavaScript, CSS, Lucide React, Fontsource e armazenamento local. O estudo original está em `src/pages/CaseStudy.jsx`; as capturas estão em `public/images/case-study/`.
 
-O vídeo percorre vitrine, busca no catálogo, detalhe do produto, tamanho, sacola, revisão do checkout, entrega fictícia, pagamento demonstrativo, simulação de pedido e painel LT Axis. Não há cobrança nem dados financeiros; o perfil administrativo é fictício, sem autenticação real. O catálogo e os pedidos pertencem ao navegador. A API de campanha do servidor de desenvolvimento/preview é demonstrativa, não um backend comercial.
+O clipe atual focaliza um único card do catálogo, alternando os botões Frente e Acabamento. As demais interfaces são apresentadas em capturas. A gravação anterior de passeio completo permanece arquivada, sem exibição na página. Não há cobrança nem dados financeiros; o perfil administrativo é fictício, sem autenticação real. O catálogo e os pedidos pertencem ao navegador. A API de campanha do servidor de desenvolvimento/preview é demonstrativa, não um backend comercial.
 
 ### Cidade do Sabor
 
 O manifesto, o código e a documentação confirmam Next.js App Router, React, TypeScript, Tailwind CSS 4, CSS Modules, Lucide React, Fontsource e armazenamento local. O estudo original está em `app/case-study/page.tsx`; as capturas estão em `public/images/case-study/`.
 
-O vídeo percorre vitrine, busca, personalização de produto, carrinho, checkout com dados fictícios e retirada, escolha visual de pagamento, simulação do pedido e perfil Administrador Demo. Nenhum pedido é enviado a restaurante, nenhuma reserva real é feita e nenhum pagamento é processado. As imagens gastronômicas são descritas no repositório como geradas por IA.
+O clipe atual focaliza a troca dos três hambúrgueres da vitrine, com as transições reais de imagem, título e seleção do carrossel. As demais interfaces são apresentadas em capturas. A gravação anterior de passeio completo permanece arquivada, sem exibição na página. Nenhum pedido é enviado a restaurante, nenhuma reserva real é feita e nenhum pagamento é processado. As imagens gastronômicas são descritas no repositório como geradas por IA.
 
 ## Como os vídeos foram produzidos
 
@@ -42,7 +42,7 @@ O vídeo percorre vitrine, busca, personalização de produto, carrinho, checkou
 3. Ambos os builds originais terminaram com sucesso. Foram iniciados servidores locais de preview/produção, vinculados a `127.0.0.1`.
 4. Playwright/Chromium navegou por fluxos reais das aplicações, em contextos de navegador novos e com dados fictícios. Os passos tiveram verificações de estado; não foram inseridas telas inventadas.
 5. A captura nativa do Chromium foi codificada pelo FFmpeg já disponível no ambiente, em MP4/H.264, sem áudio. Foram inspecionados quadros das gravações e os metadados dos arquivos.
-6. Os vídeos, legendas e roteiros foram incluídos nas apresentações. Esses arquivos não tornam a loja ou o painel original interativos dentro da dSaOl: são registros do funcionamento.
+6. Os clipes curtos, legendas e descrições foram incluídos em uma seção secundária depois das galerias de imagens. Esses arquivos não tornam a loja ou o painel original interativos dentro da dSaOl: são registros do funcionamento.
 
 Os scripts auxiliares, gravações intermediárias, dependências e builds ficaram em `backend/.test-results/`, ignorados pelo Git. Nenhum túnel ou hospedagem pública foi iniciado.
 
@@ -51,11 +51,11 @@ Os scripts auxiliares, gravações intermediárias, dependências e builds ficar
 - Referências locais, IDs e H1 das 14 páginas públicas/autenticação/administração foram conferidos, com tratamento das rotas hash administrativas. Arquivos de imagens foram comparados aos hashes das fontes.
 - Builds de Linha Tênue e Cidade do Sabor aprovados. Os roteiros de gravação concluíram os passos e não observaram erros JavaScript. Não foi executada a suíte completa de testes de cada aplicação original.
 - `npm test` no backend da dSaOl: **19 testes aprovados**, sem falhas ou ignorados, após permitir servir MP4 e VTT na lista de arquivos públicos de projetos. Schema, migrations, autenticação e permissões não foram alterados.
-- Validação de interface e mídia aprovada no Chromium em 360, 768 e 1440 px: sem rolagem horizontal; capturas carregadas; retorno e ampliação em nova aba; cards, menu e demonstrações anteriores acessíveis; formulário WhatsApp interceptado; autoplay mudo, pausa manual, pausa fora da tela, legendas, roteiro textual e reprodução manual com movimento reduzido. MP4 e requisições parciais Range responderam corretamente, incluindo HTTP 206. Não foram observados erros JavaScript, CSP ou HTTP nessa execução.
+- Validação de interface e mídia aprovada no Chromium em 360, 768 e 1440 px: sem rolagem horizontal; capturas carregadas; retorno e ampliação em nova aba; cards, menu e demonstrações anteriores acessíveis; formulário WhatsApp interceptado; autoplay mudo, pausa manual, pausa fora da tela, legendas, descrição textual e reprodução manual com movimento reduzido. MP4 e requisições parciais Range responderam corretamente, incluindo HTTP 206. Não foram observados erros JavaScript, CSP ou HTTP nessa execução.
 
 ## Limites e próximos passos
 
-- As apresentações distinguem **Ver código**, **Ver demonstração em vídeo** e uma futura demonstração interativa. Nenhum link de aplicação publicada foi inventado.
+- As apresentações distinguem **Ver código**, **Ver imagens do projeto**, clipes de detalhes e uma futura demonstração interativa. Nenhum link de aplicação publicada foi inventado.
 - Publicar as aplicações originais é uma etapa separada. Quando houver URLs reais e verificadas, elas poderão ser acrescentadas aos estudos de caso. O repositório GitHub não deve ser apresentado como se fosse uma loja executável.
 - Os painéis demonstrativos dos dois conceitos são independentes da administração real da dSaOl e não alteram seu PostgreSQL.
 - Os vídeos não incluem narração ou música. Não foram testados em Safari, Firefox ou celular físico. Preferências de autoplay do navegador podem exigir reprodução manual.
@@ -95,3 +95,20 @@ docs/portfolio-projetos-conceituais.md
 ```
 
 Para visualizar na cópia de trabalho atualizada, execute `npm.cmd start` dentro de `backend`, usando o PostgreSQL e `.env` já configurados. Abra a seção **Projetos** e escolha **Conhecer projeto**. Não é necessário instalar React ou Next no projeto da dSaOl.
+
+## Atualização da identidade e dos clipes — 30/10/2026
+
+A logo fornecida pela pessoa usuária foi preparada com transparência e aplicada nos cabeçalhos públicos, rodapé e seção Sobre da página inicial, páginas de serviços, estudos de caso e telas de acesso/administração. O emblema “O” é o favicon compartilhado. Arquivos de marca e registro de origem estão em `assets/brand/`.
+
+Novos arquivos de mídia:
+
+```text
+projetos/linha-tenue/media/acabamento.mp4
+projetos/linha-tenue/media/acabamento.vtt
+projetos/linha-tenue/imagens/acabamento-poster.png
+projetos/cidade-do-sabor/media/troca-hamburguer.mp4
+projetos/cidade-do-sabor/media/troca-hamburguer.vtt
+projetos/cidade-do-sabor/imagens/troca-hamburguer-poster.png
+```
+
+A alteração no backend apenas permite PNG na pasta pública `assets`, mantendo a lista de extensões permitidas e o bloqueio de arquivos internos. Não houve alteração de autenticação, schema, migrations, formulários ou configuração comercial. A revisão atual está registrada também no [capítulo 12 de estudos](estudos/12-identidade-e-clipes.md).

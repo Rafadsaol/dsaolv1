@@ -36,6 +36,22 @@
       }
     ],
     "video": {
+      "file": "media/acabamento.mp4",
+      "poster": "imagens/acabamento-poster.png",
+      "captions": "media/acabamento.vtt",
+      "sha256": "202735a5bea48e0d6f34fd9f44ad6810aee96380127045fb7d6d753868e291b1",
+      "duration_seconds": 8.24,
+      "resolution": [
+        342,
+        578
+      ],
+      "audio": false,
+      "method": "Recorte de interação real no Chromium CDP + FFmpeg H.264",
+      "steps": [
+        "Alternar frente e acabamento da mesma camiseta."
+      ]
+    },
+    "archived_video": {
       "file": "media/demonstracao.mp4",
       "captions": "media/roteiro.vtt",
       "sha256": "bafa64a712f701be5dcb54aa1efe31b051627834ed65d9a3c6125505268003a2",
@@ -106,6 +122,22 @@
       }
     ],
     "video": {
+      "file": "media/troca-hamburguer.mp4",
+      "poster": "imagens/troca-hamburguer-poster.png",
+      "captions": "media/troca-hamburguer.vtt",
+      "sha256": "34fc0f3bea130b2f1b958d95e39a56e70bd6b98725f37627d4ee37c24d2b1e04",
+      "duration_seconds": 7.6,
+      "resolution": [
+        1360,
+        804
+      ],
+      "audio": false,
+      "method": "Recorte de interação real no Chromium CDP + FFmpeg H.264",
+      "steps": [
+        "Avançar o carrossel entre os três hambúrgueres."
+      ]
+    },
+    "archived_video": {
       "file": "media/demonstracao.mp4",
       "captions": "media/roteiro.vtt",
       "sha256": "54515ee2fd30c0a4051b40c68295db9c9c515e5a22ab6841e6b10289e6bbe97b",

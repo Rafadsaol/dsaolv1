@@ -129,3 +129,7 @@ docs/rebranding-dsaol-web-studio.md
 ```
 
 Os pacotes de distribuição das fontes foram obtidos do registro npm sem instalação, com verificação SHA-512 do tarball. Origem, versão e integridade estão em `assets/fonts/sources.json`; as licenças acompanham os arquivos. Nenhum manifesto de dependências ou lockfile foi alterado.
+
+## Logo fornecida — 30/10/2026
+
+O logotipo textual provisório foi substituído pela arte dSaOl Web Studio fornecida pela pessoa usuária, preparada em PNG transparente. O emblema “O” tornou-se o favicon compartilhado. As aplicações e a revisão de mídia do portfólio estão descritas em [Identidade e clipes](estudos/12-identidade-e-clipes.md). Os arquivos locais e sua origem estão em `assets/brand/`.
