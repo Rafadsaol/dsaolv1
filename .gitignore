@@ -10,3 +10,6 @@ backend/coverage/
 backend/.test-results/
 *.log
 .DS_Store
+
+# Pacote estático gerado localmente para hospedagem
+/dist/

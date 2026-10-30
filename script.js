@@ -1,7 +1,7 @@
 'use strict';
 
-// Endereço provisório: substitua pelo e-mail real antes de publicar.
-const CONTACT_EMAIL = 'contato@dsaol.it';
+// E-mail de contato informado para esta etapa; não configura envio SMTP.
+const CONTACT_EMAIL = 'rafadsaol@outlook.com';
 
 const emailContact = document.querySelector('#email-contact');
 emailContact.href = `mailto:${CONTACT_EMAIL}`;

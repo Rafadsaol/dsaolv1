@@ -4,10 +4,14 @@ import path from 'node:path';
 
 // Verificação local e somente leitura. Não acessa .env, banco ou serviços externos.
 const root = fileURLToPath(new URL('../', import.meta.url));
+const publication = JSON.parse(await readFile(path.join(root, 'publicacao.config.json'), 'utf8'));
+const origin = new URL(publication.origin);
+if (origin.protocol !== 'https:' || origin.origin !== publication.origin) throw new Error('Defina uma origem pública HTTPS sem caminho ou barra final.');
 const pages = [
   'index.html',
   ...['criacao-de-sites', 'automacao', 'infraestrutura'].map(name => `servicos/${name}/index.html`),
-  ...['linha-tenue', 'cidade-do-sabor', 'loja', 'automacao', 'infraestrutura'].map(name => `projetos/${name}/index.html`)
+  ...['linha-tenue', 'cidade-do-sabor', 'loja', 'automacao', 'infraestrutura'].map(name => `projetos/${name}/index.html`),
+  '404.html'
 ];
 const errors = [];
 const warnings = [];
@@ -40,6 +44,12 @@ for (const page of pages) {
   if (!title || titles.has(title)) errors.push(`${page}: título ausente ou duplicado.`);
   if (!description || descriptions.has(description)) errors.push(`${page}: descrição ausente ou duplicada.`);
   titles.add(title); descriptions.add(description);
+  if (page !== '404.html') {
+    const expected = `${publication.origin}/${page.replace(/index\.html$/, '')}`;
+    const canonical = source.match(/<link\s+rel="canonical"\s+href="([^"]+)"/i)?.[1];
+    const ogUrl = source.match(/<meta\s+property="og:url"\s+content="([^"]+)"/i)?.[1];
+    if (canonical !== expected || ogUrl !== expected) errors.push(`${page}: canonical/og:url deve usar a URL pública configurada.`);
+  }
   if ([...source.matchAll(/<h1(?:\s|>)/gi)].length !== 1) errors.push(`${page}: deve conter exatamente um H1.`);
   const ids = [...source.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   if (new Set(ids).size !== ids.length) errors.push(`${page}: IDs duplicados.`);
@@ -69,14 +79,27 @@ const number = config.match(/\bnumber:\s*'([^']*)'/)?.[1];
 if (!number || !/^55\d{10,11}$/.test(number) || !/\bisPlaceholder:\s*false/.test(config)) {
   errors.push('WhatsApp: número comercial não configurado ou ainda marcado como placeholder.');
 }
-if (/Endereço provisório/i.test(await read(path.join(root, 'script.js')))) {
-  warnings.push('Confirmar o e-mail comercial: CONTACT_EMAIL ainda está identificado como provisório em script.js.');
+const contactScript = await read(path.join(root, 'script.js'));
+const email = contactScript.match(/const CONTACT_EMAIL\s*=\s*'([^']+)'/)?.[1];
+if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !(await read(path.join(root, 'index.html'))).includes(`href="mailto:${email}"`)) {
+  errors.push('Contato: confira o e-mail configurado em script.js e o link mailto do HTML.');
 }
-if (!/<meta\s+property="og:url"/i.test(await read(path.join(root, 'index.html')))) {
-  warnings.push('Definir a URL pública e depois preparar og:url, canonical e sitemap com a origem real.');
+const robots = await read(path.join(root, 'robots.txt'));
+if (!robots.includes(`Sitemap: ${publication.origin}/sitemap.xml`)) errors.push('robots.txt deve apontar para o sitemap da origem configurada.');
+const locations = [...(await read(path.join(root, 'sitemap.xml'))).matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+if (!locations.length || new Set(locations).size !== locations.length) errors.push('Sitemap vazio ou com URLs duplicadas.');
+for (const location of locations) {
+  try {
+    const url = new URL(location);
+    if (url.origin !== publication.origin) throw new Error();
+    let file = resolvePublicPath(url.pathname, 'index.html').file;
+    if ((await stat(file)).isDirectory()) file = path.join(file, 'index.html');
+    if (!(await stat(file)).isFile()) throw new Error();
+  } catch { errors.push(`URL inválida no sitemap: ${location}`); }
 }
-warnings.push('Confirmar hospedagem e escopo: site público estático ou aplicação com Node/PostgreSQL.');
-warnings.push('HTTPS, entrega SMTP, backups e teste em celular físico dependem da hospedagem e do escopo escolhidos.');
+if (publication.mode !== 'static' || publication.hosting !== 'cloudflare-pages') errors.push('A preparação atual é para o portfólio estático no Cloudflare Pages.');
+if (publication.deploymentVerified !== true) warnings.push('Pacote preparado; ainda falta publicar no Cloudflare Pages, configurar DNS no Registro.br e validar HTTPS/domínio.');
+warnings.push('Validar o contato e a navegação em celular físico, Safari e Firefox antes de encerrar a revisão de publicação.');
 
 console.log(`${pages.length} páginas públicas e ${references} referências locais verificadas.`);
 for (const error of errors) console.error(`ERRO: ${error}`);

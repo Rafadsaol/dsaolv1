@@ -37,7 +37,7 @@ export async function createApp(config) {
     next();
   }, requireAuth, requireAdmin, express.static(path.join(web, 'admin'), { dotfiles: 'deny' }));
   // Nunca servir a raiz do checkout: .env, migrations, backups e node_modules ficam fora da lista.
-  for (const name of ['index.html', 'style.css', 'script.js', 'config.js', 'orcamento.js', 'solicitacoes.js', 'favicon.svg']) {
+  for (const name of ['index.html', 'style.css', 'script.js', 'config.js', 'orcamento.js', 'solicitacoes.js', 'favicon.svg', 'robots.txt', 'sitemap.xml']) {
     app.get(name === 'index.html' ? ['/', '/index.html'] : `/${name}`, (req, res) => res.sendFile(path.join(root, name)));
   }
   // Fontes e imagens da identidade visual; nunca expor a raiz ou arquivos internos.

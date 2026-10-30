@@ -1,75 +1,125 @@
-# Preparação para colocar a dSaOl no ar
+# Publicação da dSaOl Web Studio
 
-Estado em 30/10/2026: preparação iniciada, sem publicação e sem alteração de banco/autenticação. A página pública usa HTML/CSS/JavaScript; a V5 acrescenta Express, Prisma e PostgreSQL. O site completo precisa de hospedagem que execute Node.js, além do banco.
+Estado em 30/10/2026: arquivos preparados e testados localmente. **Ainda não houve deploy, alteração de DNS ou validação do domínio público.**
 
-## Decisões pendentes
+## Configuração atual
 
-1. Publicar primeiro o portfólio com WhatsApp ou também disponibilizar cadastro, painel e registro de solicitações?
-2. Qual será o domínio e qual será a hospedagem? Ainda não foi informado um destino para esta publicação.
-3. O e-mail `contato@dsaol.it` já recebe mensagens? O comentário em `script.js` ainda o identifica como provisório; ele foi preservado até confirmação.
+| Item | Valor |
+|---|---|
+| Domínio comprado | `dsaol.com.br`, no Registro.br |
+| Origem preparada | `https://dsaol.com.br` |
+| E-mail de contato | `rafadsaol@outlook.com` |
+| WhatsApp | `+55 (41) 99661-7319` |
+| Formato usado pelo WhatsApp | `5541996617319` |
+| Hospedagem gratuita recomendada | Cloudflare Pages, plano Free |
+| Pacote preparado | Site público estático em `dist/site` |
 
-As respostas definem a configuração de publicação. Nenhum domínio, preço, provedor contratado ou credencial foi presumido.
+O backend, a autenticação, o painel e o PostgreSQL continuam preservados no projeto para execução local. O pacote gratuito preparado nesta etapa contém o portfólio, serviços, imagens, clipes, demonstrações e o orçamento pelo WhatsApp. Ele **não hospeda a API, contas ou painel**. Para colocar esses recursos no ar, será necessário preparar também um serviço Node/PostgreSQL.
 
-## Dois caminhos possíveis
+O e-mail informado configura o link `mailto:`. Isso não configura envio de e-mails pelo servidor nem recuperação de senha via SMTP. O WhatsApp abre uma conversa em outra aba; o visitante ainda precisa confirmar o envio.
 
-| Caminho | O que funciona | O que configurar |
-|---|---|---|
-| Portfólio público estático | Landing page, serviços, imagens, clipes, demonstrações locais e preparação do contato por WhatsApp | Hospedagem estática com HTTPS; enviar somente arquivos públicos; definir domínio e e-mail |
-| Aplicação completa | Tudo acima, mais autenticação, painel e registro opcional de solicitações no PostgreSQL | Serviço Node 24, PostgreSQL, HTTPS, SMTP, variáveis privadas, proxy, backups e verificação da aplicação |
+## Por que Cloudflare Pages
 
-GitHub Pages não executa Express, Prisma ou PostgreSQL. Um túnel temporário pelo computador continua sendo útil para testes, mas depende do computador ligado e não substitui a hospedagem permanente.
+A documentação oficial consultada em 30/10/2026 confirma um plano gratuito para sites estáticos com domínio próprio. Os limites publicados incluem 500 builds por mês, 20.000 arquivos e 25 MiB por arquivo. O pacote atual tem **57 arquivos, cerca de 6,95 MiB no total e maior arquivo de 1,27 MiB**. Não utiliza Functions, banco ou serviços pagos da Cloudflare.
 
-Publicar uma cópia estática não exige apagar o backend do repositório. A montagem de um pacote estático deve usar uma lista explícita de arquivos públicos; não enviar a pasta inteira do projeto para um diretório servido por HTTP. O frontend consulta a disponibilidade da API e mantém o contato pelo WhatsApp quando ela não está disponível.
+A renovação do domínio continua sendo feita no Registro.br; hospedagem gratuita não elimina essa cobrança do domínio. O domínio pode continuar registrado lá mesmo usando DNS da Cloudflare.
 
-## O que foi preparado e conferido
+Fontes oficiais:
 
-- As duas capturas móveis de Cidade do Sabor agora usam uma moldura reutilizável de celular, com rolagem interna, foco visível e ampliação em nova aba. As imagens originais foram preservadas.
-- Criado `scripts/verificar-publicacao.mjs`: verificação local, sem dependências novas, sem rede e sem leitura de `.env`. Confere títulos/descrições, H1, IDs, textos alternativos, referências e âncoras das nove páginas públicas, além da configuração pública do WhatsApp.
-- A revisão mantém o WhatsApp comercial configurado e seu fluxo de confirmação manual. Abrir a conversa não significa que a mensagem foi enviada. A regressão no Chromium em 360, 768 e 1440 px passou, incluindo menu, estudos, imagens, clipes e montagem da mensagem interceptada sem envio real.
-- Metadados básicos e fontes locais já existem. Não foram criados canonical, sitemap ou URLs Open Graph com domínio inventado.
-- A V5 já protege o painel no backend, usa sessões persistentes, CSRF, Argon2id e cookies Secure quando a origem usa HTTPS. Isso não substitui a revisão do ambiente de produção.
+- [Sites HTML estáticos](https://developers.cloudflare.com/pages/framework-guides/deploy-anything/)
+- [Limites do plano](https://developers.cloudflare.com/pages/platform/limits/)
+- [Domínios próprios e DNS](https://developers.cloudflare.com/pages/configuration/custom-domains/)
+- [Integração com Git](https://developers.cloudflare.com/pages/get-started/git-integration/)
+- [Controle de publicações por branch](https://developers.cloudflare.com/pages/configuration/branch-build-controls/)
 
-Para executar a conferência, na raiz do projeto:
+Os textos foram conferidos no [repositório oficial da documentação](https://github.com/cloudflare/cloudflare-docs/tree/production/src/content/docs/pages). A configuração real e a disponibilidade do plano devem ser conferidas no painel ao criar a conta.
+
+## Gerar o pacote no seu computador
+
+Na raiz do repositório atualizado, com Node.js 24 instalado:
 
 ```powershell
+git pull --ff-only
 node scripts/verificar-publicacao.mjs
+node scripts/preparar-site-publico.mjs
 ```
 
-O código de saída é 1 quando há erro de referência ou conteúdo obrigatório. As pendências de publicação aparecem separadamente. Para exigir também a resolução das pendências registradas no script:
+Não é necessário instalar dependências para esses comandos. O resultado está em **`dist/site`**, ignorado pelo Git. O script copia somente arquivos públicos, licenças de fontes e a configuração de headers estáticos. Não copia `.env`, backend, banco, docs, scripts de manutenção, Git, node_modules ou interfaces administrativas.
 
-```powershell
-node scripts/verificar-publicacao.mjs --estrito
-```
+Na **cópia gerada** do `index.html`, ele retira o carregamento de `solicitacoes.js`, o painel opcional de registro e o link de conta. Assim, o site estático não consulta uma API inexistente nem oferece login sem backend. Os arquivos originais e a integração V5 permanecem intactos no projeto.
 
-O modo estrito falha nesta etapa, pois hospedagem/domínio e e-mail ainda precisam de confirmação. Após as decisões, atualizar tanto os arquivos de configuração quanto os avisos correspondentes do script. Este verificador é uma conferência estática dos padrões HTML atuais; não substitui navegador, auditoria completa de acessibilidade ou teste da hospedagem.
+O empacotador pode ser executado novamente: atualiza somente seu próprio pacote, exige o marcador em `dist/.site-public-build` e recusa arquivos/pastas inesperados ou links simbólicos. Ele não apaga arquivos. Se houver um arquivo inesperado, revise-o e mova-o para fora do pacote antes de executar novamente; não envie arquivos privados para `dist/site`.
 
-## Sequência para a aplicação completa, se esse for o caminho escolhido
+O verificador confere dez HTMLs e 168 referências locais nos arquivos-fonte, títulos/descrições, H1, IDs, imagens, e-mail, WhatsApp, canonical/og:url, sitemap e robots. `--estrito` também reprova as pendências de publicação. Essas verificações são locais; não confirmam DNS, HTTPS, entrega de e-mail ou mensagens.
 
-1. Criar um ambiente de produção separado do laboratório, com PostgreSQL próprio. Não usar o banco de testes para receber dados reais.
-2. Configurar variáveis no painel privado da hospedagem, usando `backend/.env.example` como referência. Não enviar `.env` ao GitHub.
-3. Definir `NODE_ENV=production`, a `APP_ORIGIN` HTTPS real, `DATABASE_URL`, um `SESSION_SECRET` novo e a entrega SMTP. `HOST=0.0.0.0` costuma ser necessário em containers/plataformas; em servidor local atrás de proxy, a interface depende da arquitetura escolhida.
-4. Definir `TRUST_PROXY=1` somente se houver exatamente um proxy confiável e o Node não puder ser acessado diretamente pela internet. Outras topologias precisam de configuração específica; não confiar indiscriminadamente em headers encaminhados.
-5. Na pasta `backend`, instalar com `npm ci`, gerar o cliente com `npm run prisma:generate` e aplicar migrations existentes com `npm run db:migrate`. Esses comandos são uma sequência futura; não foram executados em produção. Não usar reset nem seed de demonstração no banco real.
-6. Criar o primeiro administrador pelo CLI interativo `npm run admin:bootstrap`, em terminal privado da hospedagem. Não usar uma senha fixa em código ou argumentos do shell.
-7. Iniciar o serviço com `node src/server.js`, usando as variáveis já configuradas pela hospedagem. `npm start` atual exige um arquivo `.env` local; não assumir que ele existe em uma plataforma que injeta variáveis. Depois de escolher o provedor, ajustar/documentar o comando adequado.
-8. Testar recuperação de senha com entrega SMTP efetiva, HTTPS, sessões Secure, origem, logout, proteção USER/ADMIN e indisponibilidade do banco. O transporte `file` de desenvolvimento é recusado em produção.
-9. Manter inicialmente uma única instância e revisar limites de requisições e proxy. O rate limiter atual fica em memória e reinicia com o processo; múltiplas instâncias exigem uma solução compartilhada.
-10. Configurar backups, retenção dos dados de solicitações, restauração testada, monitoramento de disponibilidade e registros que não exponham senhas, tokens ou conteúdo pessoal.
+`publicacao.config.json` registra a origem, o destino preparado e `deploymentVerified: false`. Mantenha esse campo falso até existir uma publicação verificada; ele é um registro manual, não uma sondagem automática do domínio. As pendências de teste em celular/Safari/Firefox continuam sendo informadas separadamente.
 
-Não foram criadas contas em hospedagens, contratado domínio, configurado SMTP real ou feito deploy. A imagem PostgreSQL do `compose.yaml` atual é do laboratório, vinculada ao loopback; não a expor diretamente na internet.
+## Criar o projeto no Cloudflare Pages
 
-## Revisão final de conteúdo e experiência
+As etapas abaixo são instruções para você executar na sua conta. Nenhum projeto ou conta foi criado pelo assistente.
 
-- Confirmar e-mail, número e atendimento comercial. Testar abertura do WhatsApp em celular real, sem confundir abertura com envio.
-- Revisar texto de privacidade e os dados realmente coletados. Se o registro no banco for público, definir finalidade, acesso, retenção e canal de contato antes de receber dados reais. A autorização separada existente continua obrigatória.
-- Confirmar como apresentar os projetos conceituais e as imagens utilizadas. Linha Tênue e Cidade do Sabor continuam identificados como fictícios, sem cliente ou aplicação interativa publicada.
-- Definir a origem pública para canonical, sitemap e compartilhamento social. Preparar as regras de indexação conforme o host escolhido; páginas de conta e administração não devem ser indexadas.
-- Testar os links e o formulário no endereço público final. Na hospedagem estática, validar também o caminho quando o site estiver em uma subpasta.
-- Conferir 360, 768 e 1440 px, navegação por teclado, movimento reduzido e pelo menos um celular físico; revisar também Safari e Firefox.
-- Configurar cache e compressão na hospedagem. Os PNGs da marca e o favicon raster incorporado podem ser otimizados quando houver os vetores originais; não são impeditivos funcionais, mas merecem revisão de tamanho.
+Para aproveitar o repositório GitHub, no painel Cloudflare procure **Workers & Pages → Create application → Pages → Connect to Git**. A disposição e os nomes podem variar na interface. Autorize somente o repositório necessário e use:
 
-## Arquivos desta etapa
+| Configuração | Valor |
+|---|---|
+| Repositório | `Rafadsaol/dsaolv1` |
+| Branch de produção | `v5-fullstack` |
+| Framework preset | `None` |
+| Diretório raiz do projeto | Raiz do repositório; não selecionar `backend` |
+| Build command | `node scripts/preparar-site-publico.mjs` |
+| Build output directory | `dist/site` |
+| Variável do build | `NODE_VERSION=24` |
 
-Modificados: `index.html`, `projetos/linha-tenue/index.html` (versão do CSS compartilhado), `projetos/cidade-do-sabor/index.html`, `projetos/cases.css`, `README.md`, `docs/estudos/README.md`.
+Não configure comando de deploy do Workers nem aponte a saída para a raiz do repositório. O projeto é Pages estático. Não informe `DATABASE_URL`, `SESSION_SECRET` ou credenciais do laboratório ao build estático.
 
-Criados: `scripts/verificar-publicacao.mjs`, `docs/publicacao.md`, `docs/estudos/13-preparacao-publicacao.md`.
+**Confirmar o primeiro deploy publica uma URL `pages.dev`.** Faça isso quando estiver pronto para disponibilizar essa cópia. Não inventamos um nome de projeto ou URL `pages.dev`; use a URL efetivamente fornecida pelo painel.
+
+A integração Git faz publicações automáticas por padrão. Se quiser manter atualizações no GitHub sem publicar cada alteração, após criar o projeto vá em **Settings → Builds & deployments → Configure Production deployments**, desative **Enable automatic production branch deployments** e salve. Configure **Preview branches: None** se também não quiser previews automáticos. Para publicar uma revisão nova com automações desativadas, será necessário acionar um mecanismo suportado para a revisão desejada, como um deploy hook ou Wrangler; essa configuração é uma etapa posterior. A ação de tentar novamente um deploy pode reconstruir a revisão anterior, então confira o commit exibido no painel.
+
+Como alternativa inicial sem integração Git, escolha **Direct Upload** e envie somente a pasta `dist/site`. Essa opção exige novos uploads a cada atualização. A documentação informa que um projeto criado por Direct Upload não pode ser convertido em integração Git; para mudar esse modelo, será necessário outro projeto. Não é preciso instalar Wrangler para fazer o upload pela interface.
+
+## Conectar dsaol.com.br no Registro.br
+
+Para usar o domínio raiz no Cloudflare Pages, a documentação exige uma zona Cloudflare para o domínio e seus servidores DNS configurados lá.
+
+1. Na Cloudflare, adicione o domínio `dsaol.com.br` e escolha o plano gratuito. Confira os registros DNS encontrados; preserve registros existentes de e-mail, como MX/TXT, se houver.
+2. Copie os **dois servidores DNS exatos fornecidos para a sua conta**. Não existem valores genéricos que devamos inventar neste documento.
+3. No Registro.br, entre em sua conta, abra `dsaol.com.br` e procure **DNS → Alterar servidores DNS**. Informe os dois servidores recebidos da Cloudflare e salve. Isso muda o DNS, não transfere o registro do domínio.
+4. Aguarde a Cloudflare reconhecer a zona como ativa. A propagação não é instantânea e deve ser acompanhada nos painéis.
+5. No projeto Pages, abra **Custom domains → Set up a custom domain** e informe `dsaol.com.br`. Complete o processo no próprio Pages; não crie apenas um CNAME isolado sem associar o domínio ao projeto.
+6. Aguarde a ativação do domínio e do certificado. Verifique `https://dsaol.com.br` e confira se o certificado é válido antes de divulgar o endereço.
+7. Se quiser atender também `www.dsaol.com.br`, cadastre esse nome no Pages e prepare um redirecionamento para a origem sem `www`. Essa etapa é opcional e ainda não foi configurada.
+
+Não é necessário criar uma caixa de e-mail `@dsaol.com.br` nesta etapa. O link de contato usa a conta Outlook informada. Não altere registros MX para tentar fazer o site funcionar; DNS do site e entrega de e-mail são configurações diferentes.
+
+## Metadados e arquivos publicados
+
+As nove páginas públicas receberam canonical e og:url com a origem real. `sitemap.xml` inclui a página inicial, o serviço de criação de sites e os dois estudos de caso. As demonstrações antigas permanecem acessíveis pelo portfólio; as páginas históricas de serviços conservam `noindex`.
+
+`robots.txt` aponta para o sitemap e orienta rastreadores a não visitar áreas de conta/administração/arquivos internos. Ele **não é controle de acesso**: no pacote estático, essas áreas não são exportadas; no backend, continuam protegidas pelos middlewares existentes.
+
+`404.html` oferece retorno ao início em endereços inexistentes. O arquivo `_headers` gerado configura CSP, proteção contra incorporação em frames, tipo de conteúdo, referrer e permissões do navegador. Esses headers são aplicados pela hospedagem Pages; o teste local os simulou. Não substituem a verificação no domínio publicado.
+
+## Testes desta revisão
+
+- `npm test` em `backend`: **19 testes aprovados com PostgreSQL real**, sem falhas ou ignorados. O backend mudou somente a lista de arquivos públicos para servir `robots.txt` e `sitemap.xml`.
+- Fonte e pacote estático verificados no Chromium em **360, 768 e 1440 px**. Página inicial, imagens, menu, retorno, estudos, clipes, movimento reduzido e contato preservados, sem rolagem horizontal observada.
+- Testados formulário vazio, e-mail/telefone inválidos, pré-seleção de serviço, mensagem com dados fictícios e destino `5541996617319`, com abertura interceptada em nova aba. Nenhuma mensagem real enviada.
+- Link `mailto:rafadsaol@outlook.com` conferido. Não houve teste de envio ou recebimento de e-mail.
+- No pacote, nenhuma consulta automática à API, nenhuma interface administrativa exportada, nenhuma persistência dos dados pessoais preenchidos no formulário e nenhuma criação de cookie observada.
+- Dez HTMLs do pacote e 166 referências locais válidos; XML do sitemap válido. MP4 com requisições Range HTTP 206; arquivos privados indisponíveis no servidor local do pacote.
+- Empacotador executado novamente com sucesso; arquivos inesperados e links simbólicos foram recusados antes de alterar a saída. Build de uma árvore Git limpa, sem `.env`, `node_modules`, instalação ou banco, gerou os mesmos 57 arquivos com hashes idênticos. Sintaxe dos 38 arquivos JavaScript/MJS e `git diff --check` aprovadas.
+
+Ainda não foram testados Cloudflare real, DNS, HTTPS público, Safari, Firefox ou celular físico. A revisão local não significa que o site já está no ar. A publicação não hospeda Linha Tênue e Cidade do Sabor como aplicações completas: apresenta suas imagens e clipes existentes.
+
+## Se quiser publicar o backend depois
+
+Será outra etapa: hospedagem Node 24/PostgreSQL, origem HTTPS real, secrets próprios de produção, SMTP com entrega verificada, revisão de proxy/limites, primeiro ADMIN via CLI e backups/restauração testados. Não reutilizar o banco do laboratório para dados reais. Veja o [README do backend](../backend/README.md). A hospedagem Pages estática não executa Express nem migrations.
+
+## Arquivos desta revisão
+
+Modificados: `.gitignore`, `config.js`, `script.js`, `index.html`, os cinco `projetos/*/index.html`, os três `servicos/*/index.html`, `backend/src/app.js`, `scripts/verificar-publicacao.mjs`, `README.md`, `docs/publicacao.md`, `docs/estudos/README.md`.
+
+Criados: `publicacao.config.json`, `robots.txt`, `sitemap.xml`, `404.html`, `scripts/preparar-site-publico.mjs`, `deploy/cloudflare/_headers`, `docs/estudos/14-cloudflare-dominio-contato.md`.
+
+Gerados e ignorados pelo Git: `dist/site/` e `dist/.site-public-build`. O pacote é reproduzido pelo comando de build; não precisa ser enviado como código-fonte ao GitHub.

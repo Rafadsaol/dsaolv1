@@ -2,11 +2,18 @@
 Testando codex portifolio para pagina minha
 
 
-## Preparação da publicação — dSaOl Web Studio
+## Publicação preparada — dSaOl Web Studio
 
-A preparação para disponibilizar o site permanentemente começou. O projeto ainda não recebeu deploy nesta etapa. Veja o [roteiro de publicação e as decisões pendentes](docs/publicacao.md), com as diferenças entre publicar o portfólio com WhatsApp e hospedar a aplicação completa com Node/PostgreSQL.
+Domínio informado: **dsaol.com.br**, registrado no Registro.br. Contatos atuais: **rafadsaol@outlook.com** e **+55 (41) 99661-7319**. Foi preparado um pacote do site público para o **Cloudflare Pages gratuito**, com domínio próprio. Não houve deploy nem alteração de DNS nesta etapa; backend, autenticação e painel permanecem preservados para execução local.
 
-Na raiz do projeto, `node scripts/verificar-publicacao.mjs` confere as nove páginas públicas e suas referências sem ler `.env`, acessar o banco ou publicar arquivos. O modo `--estrito` também bloqueia as pendências registradas. O [capítulo 13 de estudos](docs/estudos/13-preparacao-publicacao.md) explica a revisão das molduras de celular e como repetir a conferência.
+Na raiz, com Node.js 24, execute:
+
+```powershell
+node scripts/verificar-publicacao.mjs
+node scripts/preparar-site-publico.mjs
+```
+
+O resultado fica em `dist/site`, ignorado pelo Git e sem arquivos privados/backend. Para o Pages: framework `None`, build `node scripts/preparar-site-publico.mjs`, saída `dist/site`, branch `v5-fullstack`, `NODE_VERSION=24`. [Siga o guia de hospedagem, Registro.br e testes](docs/publicacao.md) antes de confirmar a publicação. O [capítulo 14](docs/estudos/14-cloudflare-dominio-contato.md) explica o código dessa preparação. Não envie a raiz inteira do repositório para hospedagem estática.
 
 ## V5 — Full Stack para estudos (não publicada)
 

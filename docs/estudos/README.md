@@ -23,6 +23,7 @@ Os trechos identificados como “do projeto” correspondem ao código existente
 | [11. Link temporário](11-link-temporario.md) | Compartilhar o laboratório pelo cloudflared, configurar origem HTTPS e encerrar o acesso |
 | [12. Identidade e clipes](12-identidade-e-clipes.md) | Aplicar a logo, entender o favicon O e apresentar projetos com imagens e clipes curtos |
 | [13. Preparação da publicação](13-preparacao-publicacao.md) | Molduras de celular, conferência das páginas e decisões para hospedagem estática ou Full Stack |
+| [14. Cloudflare, domínio e contato](14-cloudflare-dominio-contato.md) | Preparar o site público para hospedagem gratuita, configurar dsaol.com.br e entender o empacotador seguro |
 
 ## As três camadas do site
 

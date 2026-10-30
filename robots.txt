@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /backend/
+Disallow: /docs/
+
+Sitemap: https://dsaol.com.br/sitemap.xml
