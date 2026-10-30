@@ -175,6 +175,46 @@
           2056
         ],
         "method": "Captura real no Chromium da seção favoritos com a largura completa da página, preservando as margens originais."
+      },
+      {
+        "file": "imagens/inicio-mobile-alinhado.png",
+        "source_page": "/",
+        "scroll_offset": [
+          0,
+          12
+        ],
+        "viewport": [
+          390,
+          1000
+        ],
+        "device_scale_factor": 2,
+        "resolution": [
+          780,
+          2000
+        ],
+        "method": "Captura real de viewport completo no Chromium, mesma sessão/configuração para as duas telas.",
+        "source_commit": "5f1bd0366b59c5f2cce195578a304edfa3a53335",
+        "sha256": "dbef2a1a664fd7c19f9fc12f88bfec6f8993c176aa281fca95d46aa6e1c699dc"
+      },
+      {
+        "file": "imagens/cardapio-mobile-alinhado.png",
+        "source_page": "/cardapio",
+        "scroll_offset": [
+          0,
+          0
+        ],
+        "viewport": [
+          390,
+          1000
+        ],
+        "device_scale_factor": 2,
+        "resolution": [
+          780,
+          2000
+        ],
+        "method": "Captura real de viewport completo no Chromium, mesma sessão/configuração para as duas telas.",
+        "source_commit": "5f1bd0366b59c5f2cce195578a304edfa3a53335",
+        "sha256": "b4512d0c62864388b8d8cec0afa0dc22190773f21321fea3f3c60d2787144e06"
       }
     ]
   }

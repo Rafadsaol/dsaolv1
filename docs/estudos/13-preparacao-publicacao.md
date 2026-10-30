@@ -66,3 +66,13 @@ A moldura possui uma borda fina e máximo de 326 px. Os pseudo-elementos do corp
 A captura anterior do cardápio havia sido recortada sem as margens da página. Uma nova captura real no Chromium, `favoritos-mobile-contexto.png`, inclui essas margens e conserva o arquivo anterior. Isso melhora o espaçamento sem precisar reduzir artificialmente a imagem dentro de uma borda larga. A origem e o hash estão em `docs/portfolio-fontes.json`.
 
 A apresentação e o pacote estático foram novamente conferidos no Chromium em 360, 768 e 1440 px. Veja os detalhes atualizados no [guia de publicação](../publicacao.md).
+
+## Composição atual: duas telas em um bloco
+
+O componente atual usa `.case-mobile-showcase` como painel compartilhado. `.case-mobile-grid` define duas colunas iguais com `repeat(2, minmax(0, 1fr))`; abaixo de 640 px, passa para uma coluna. O título geral e os exemplos usam eixos de centralização consistentes.
+
+Cada `.case-mobile-item` tem três linhas de grade: rótulo de 28 px, aparelho de altura automática e link de ampliação de 44 px. As dimensões iguais dos aparelhos e das capturas mantêm os topos e bases alinhados sem ajustes diferentes para cada imagem. Os dois PNGs atuais foram capturados no mesmo viewport e na mesma escala, com a navegação real do projeto visível.
+
+As molduras agora têm largura máxima de 280 px e acabamento escuro discreto. O conteúdo continua rolável e mantém texto alternativo e nomes acessíveis. Os links de ampliação usam SVG local em vez de depender de um glifo de seta da fonte.
+
+A validação no Chromium conferiu dimensões e posições dos dois aparelhos, câmeras, telas, rótulos e links, além de rolagem interna e ampliação por teclado. Foram verificadas larguras de 360, 768 e 1440 px. Veja os novos arquivos e a origem em `docs/portfolio-fontes.json` e o estado da prévia em [Publicação](../publicacao.md).

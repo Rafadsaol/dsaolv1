@@ -1,6 +1,6 @@
 # Publicação da dSaOl Web Studio
 
-Estado em 30/10/2026: arquivos preparados e testados localmente. **Ainda não houve deploy, alteração de DNS ou validação do domínio público.**
+Estado em 30/10/2026: a pessoa usuária informou a prévia `https://dsaolv1.pages.dev/`. O acesso externo do ambiente está bloqueado por política de rede, portanto a verificação independente dessa URL permanece pendente. Não houve alteração de DNS pelo assistente; `dsaol.com.br` ainda precisa ser conectado e validado.
 
 ## Configuração atual
 
@@ -20,7 +20,7 @@ O e-mail informado configura o link `mailto:`. Isso não configura envio de e-ma
 
 ## Por que Cloudflare Pages
 
-A documentação oficial consultada em 30/10/2026 confirma um plano gratuito para sites estáticos com domínio próprio. Os limites publicados incluem 500 builds por mês, 20.000 arquivos e 25 MiB por arquivo. O pacote atual tem **58 arquivos, cerca de 7,37 MiB no total e maior arquivo de 1,27 MiB**. Não utiliza Functions, banco ou serviços pagos da Cloudflare.
+A documentação oficial consultada em 30/10/2026 confirma um plano gratuito para sites estáticos com domínio próprio. Os limites publicados incluem 500 builds por mês, 20.000 arquivos e 25 MiB por arquivo. O pacote atual tem **60 arquivos, cerca de 8,83 MiB no total e maior arquivo de 1,27 MiB**. Não utiliza Functions, banco ou serviços pagos da Cloudflare.
 
 A renovação do domínio continua sendo feita no Registro.br; hospedagem gratuita não elimina essa cobrança do domínio. O domínio pode continuar registrado lá mesmo usando DNS da Cloudflare.
 
@@ -50,7 +50,7 @@ Na **cópia gerada** do `index.html`, ele retira o carregamento de `solicitacoes
 
 O empacotador pode ser executado novamente: atualiza somente seu próprio pacote, exige o marcador em `dist/.site-public-build` e recusa arquivos/pastas inesperados ou links simbólicos. Ele não apaga arquivos. Se houver um arquivo inesperado, revise-o e mova-o para fora do pacote antes de executar novamente; não envie arquivos privados para `dist/site`.
 
-O verificador confere dez HTMLs e 168 referências locais nos arquivos-fonte, títulos/descrições, H1, IDs, imagens, e-mail, WhatsApp, canonical/og:url, sitemap e robots. `--estrito` também reprova as pendências de publicação. Essas verificações são locais; não confirmam DNS, HTTPS, entrega de e-mail ou mensagens.
+O verificador confere dez HTMLs e 170 referências locais nos arquivos-fonte, títulos/descrições, H1, IDs, imagens, e-mail, WhatsApp, canonical/og:url, sitemap e robots. `--estrito` também reprova as pendências de publicação. Essas verificações são locais; não confirmam DNS, HTTPS, entrega de e-mail ou mensagens.
 
 `publicacao.config.json` registra a origem, o destino preparado e `deploymentVerified: false`. Mantenha esse campo falso até existir uma publicação verificada; ele é um registro manual, não uma sondagem automática do domínio. As pendências de teste em celular/Safari/Firefox continuam sendo informadas separadamente.
 
@@ -107,8 +107,8 @@ As nove páginas públicas receberam canonical e og:url com a origem real. `site
 - Testados formulário vazio, e-mail/telefone inválidos, pré-seleção de serviço, mensagem com dados fictícios e destino `5541996617319`, com abertura interceptada em nova aba. Nenhuma mensagem real enviada.
 - Link `mailto:rafadsaol@outlook.com` conferido. Não houve teste de envio ou recebimento de e-mail.
 - No pacote, nenhuma consulta automática à API, nenhuma interface administrativa exportada, nenhuma persistência dos dados pessoais preenchidos no formulário e nenhuma criação de cookie observada.
-- Dez HTMLs do pacote e 166 referências locais válidos; XML do sitemap válido. MP4 com requisições Range HTTP 206; arquivos privados indisponíveis no servidor local do pacote.
-- Empacotador executado novamente com sucesso; arquivos inesperados e links simbólicos foram recusados antes de alterar a saída. Build de uma árvore Git limpa, sem `.env`, `node_modules`, instalação ou banco, gerou os mesmos 58 arquivos com hashes idênticos. Sintaxe dos 38 arquivos JavaScript/MJS e `git diff --check` aprovadas.
+- Dez HTMLs do pacote e 168 referências locais válidos; XML do sitemap válido. MP4 com requisições Range HTTP 206; arquivos privados indisponíveis no servidor local do pacote.
+- Empacotador executado novamente com sucesso; arquivos inesperados e links simbólicos foram recusados antes de alterar a saída. Build de uma árvore Git limpa, sem `.env`, `node_modules`, instalação ou banco, gerou os mesmos 60 arquivos com hashes idênticos. Sintaxe dos 38 arquivos JavaScript/MJS e `git diff --check` aprovadas.
 
 Ainda não foram testados Cloudflare real, DNS, HTTPS público, Safari, Firefox ou celular físico. A revisão local não significa que o site já está no ar. A publicação não hospeda Linha Tênue e Cidade do Sabor como aplicações completas: apresenta suas imagens e clipes existentes.
 
@@ -133,3 +133,13 @@ A nova imagem `projetos/cidade-do-sabor/imagens/favoritos-mobile-contexto.png` f
 A revisão foi conferida visualmente no Chromium em 360, 768 e 1440 px, incluindo rolagem interna, teclado e ampliação. O pacote estático foi regenerado e passou novamente nos testes de navegação, contato e mídia. Os 19 testes do backend referidos acima são da preparação anterior; não houve alteração do backend nesta revisão visual.
 
 Para manter a publicação em pausa, o commit desta revisão usa o prefixo `[CF-Pages-Skip]`, documentado pela [Cloudflare para omitir o deploy de um commit](https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/#skipping-a-build-via-a-commit-message). Ele permite atualizar os fontes no GitHub sem disparar um deploy da integração Git do Pages para esse commit. Nenhuma configuração de DNS ou hospedagem foi alterada.
+
+## Apresentação mobile unificada
+
+As telas foram reorganizadas fora dos cards desktop, em um único bloco Experiência mobile. No desktop/tablet, a grade mantém os dois celulares na mesma linha e usa alturas iguais para títulos e links de ampliação. No celular, os exemplos são empilhados e centralizados.
+
+As duas capturas atuais são `inicio-mobile-alinhado.png` e `cardapio-mobile-alinhado.png`, ambas com 780 × 2000 pixels, capturadas da aplicação original no mesmo viewport de 390 × 1000 com escala 2. As duas mostram a navegação do projeto. O deslocamento inicial da captura é registrado em `docs/portfolio-fontes.json`. Arquivos anteriores foram preservados.
+
+O acabamento usa bordas escuras mais finas, câmera discreta e uma única escala de apresentação. Foram medidos no Chromium os topos e bases dos aparelhos, telas, câmeras, títulos e links, com diferença inferior a 0,5 px entre as colunas. Em 360 px, ambos mantêm o mesmo centro e são empilhados com espaçamento consistente. Rolagem interna e os links de ampliação foram testados pelo teclado.
+
+A correção desta apresentação é enviada à branch `v5-fullstack` para reconstrução da prévia já criada pela pessoa usuária. Esta atualização não usa o prefixo de pausa do commit anterior. O deploy depende das configurações da integração Git no Pages; confira o commit do deploy ativo antes de revisar o resultado no endereço publicado. Nenhuma alteração do domínio ou DNS acompanha a atualização visual.

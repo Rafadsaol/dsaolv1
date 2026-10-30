@@ -120,3 +120,11 @@ As duas capturas móveis de Cidade do Sabor passaram a compartilhar um aparelho 
 A imagem `imagens/favoritos-mobile-contexto.png` é uma captura real complementar feita no Chromium: viewport 390 × 844, escala 2, imagem 780 × 2056. A seção foi registrada com a largura completa de 390 px, incluindo as margens originais, em vez de apenas o conteúdo recortado. Não houve montagem ou alteração dos pixels da captura original. O novo arquivo e seu SHA-256 estão registrados em `supplemental_captures` de `docs/portfolio-fontes.json`.
 
 Nesta revisão foram modificados `projetos/cases.css`, `projetos/cidade-do-sabor/index.html`, as versões de CSS em `index.html`, `projetos/linha-tenue/index.html` e `404.html`, os registros de fontes e esta documentação. O site, contatos e backend foram preservados. O pacote gerado passou a ter 58 arquivos e 7,37 MiB.
+
+### Composição mobile compartilhada
+
+A versão atual separa as seis capturas desktop de Cidade do Sabor de um bloco mobile único, com título centralizado, rótulos numerados, dois aparelhos na mesma escala e links explícitos para ampliar. A apresentação usa Página inicial e Cardápio, capturados no mesmo viewport real de 390 × 1000, com escala 2 e arquivos de 780 × 2000 pixels. Não foram inventadas interfaces nem dados.
+
+Novas capturas: `projetos/cidade-do-sabor/imagens/inicio-mobile-alinhado.png` e `projetos/cidade-do-sabor/imagens/cardapio-mobile-alinhado.png`. Os arquivos anteriores continuam no projeto. Origem, resolução, deslocamento da captura e hashes estão em `supplemental_captures` do manifesto.
+
+A validação no Chromium mediu o alinhamento do conjunto em 360, 768 e 1440 px: aparelhos e telas com dimensões iguais; câmera, títulos e links na mesma altura nas duas colunas; centralização e espaçamento ao empilhar. A ampliação continua disponível pela imagem e pelo link abaixo. A rolagem dentro do aparelho permanece nativa. O pacote estático, incluindo navegação, WhatsApp interceptado e mídia, foi validado novamente.
