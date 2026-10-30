@@ -192,9 +192,15 @@
           780,
           2000
         ],
-        "method": "Captura real de viewport completo no Chromium, mesma sessão/configuração para as duas telas.",
+        "method": "Nova captura real no Chromium; apenas o contorno externo recebe borda transparente durante a captura. Geometria e arquivos do projeto original preservados.",
         "source_commit": "5f1bd0366b59c5f2cce195578a304edfa3a53335",
-        "sha256": "dbef2a1a664fd7c19f9fc12f88bfec6f8993c176aa281fca95d46aa6e1c699dc"
+        "sha256": "3c8f42957da048bf6539c3baf8b6cba2b05caf01f1a087b89c278a4d800927ec",
+        "capture_styles": [
+          {
+            "selector": ".header-home, .showcase",
+            "declaration": "border-color: transparent !important"
+          }
+        ]
       },
       {
         "file": "imagens/cardapio-mobile-alinhado.png",
