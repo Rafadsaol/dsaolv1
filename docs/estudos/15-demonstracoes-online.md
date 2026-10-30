@@ -13,7 +13,7 @@ Preparação de 30/10/2026 para hospedagem estática na Cloudflare Pages. Cada d
 | Variável | NODE_VERSION=24 | NODE_VERSION=24 |
 | Subdomínio pretendido | linhatenue.dsaol.com.br | cidadedosabor.dsaol.com.br |
 
-Os subdomínios são destinos planejados. A criação dos projetos, sua publicação e a associação dos domínios ainda dependem do painel da conta Cloudflare. Nenhum endereço de demonstração foi acrescentado ao portfólio antes de existir e ser confirmado.
+Os subdomínios são destinos planejados. A criação dos projetos, sua publicação e a associação dos domínios ainda dependem do painel da conta Cloudflare. Os endereços pages.dev foram posteriormente fornecidos pela pessoa usuária e integrados ao portfólio, conforme registro abaixo.
 
 ## Publicação
 
@@ -22,7 +22,7 @@ Os subdomínios são destinos planejados. A criação dos projetos, sua publica�
 3. Esperar o deploy concluir e abrir o endereço pages.dev fornecido pela Cloudflare.
 4. Testar imagens, navegação, catálogo, carrinho e os perfis demonstrativos usando apenas dados fictícios.
 5. Em Custom domains do projeto, associar seu subdomínio. Confirmar a criação do registro DNS oferecido pela Cloudflare e aguardar HTTPS ativo.
-6. Confirmar os endereços reais para então incorporar cada demonstração ao portfólio. A interface interativa no site principal ainda não foi implementada nesta preparação.
+6. Confirmar os endereços reais para então incorporar cada demonstração ao portfólio. A interface interativa no site principal foi implementada após o recebimento dos endereços pages.dev (ver atualização abaixo).
 
 ## Comportamento e limites
 
@@ -42,3 +42,22 @@ Não há compra, cobrança, pedido enviado a restaurante, banco hospedado ou aut
 - Incorporação por iframe com origem dsaol.com.br simulada localmente aprovada.
 - Pacotes dentro dos limites por arquivo e quantidade da Cloudflare Pages: Linha Tênue, 61 arquivos, cerca de 81 MiB; Cidade do Sabor, 242 arquivos, cerca de 19 MiB. O maior arquivo de cada pacote tem menos de 4 MiB.
 - DNS, HTTPS, cabeçalhos efetivos na Cloudflare, Safari/Firefox, armazenamento em iframe em celular físico e fluxo completo de compra fictícia ainda precisam de validação pública. O bloqueio de armazenamento por navegadores pode limitar a demonstração incorporada; oferecer também abertura em nova aba na futura integração.
+
+## Atualização: janela interativa no portfólio
+
+Endereços fornecidos pela pessoa usuária:
+
+- https://linhatenuev1.pages.dev/
+- https://cidadedosaborv1.pages.dev/
+
+O botão “Explorar demonstração” está nos dois cards da página inicial e no início de cada estudo de caso. Um único componente (projetos/demo-viewer.js e projetos/demo-viewer.css) abre um dialog modal com iframe carregado somente ao clicar. Não abre outra aba. Oferece formatos Desktop/Celular em telas maiores, ocupa a tela disponível no celular e mantém um botão Fechar visível. Fechar descarta o iframe, encerra sua execução e devolve foco ao botão sem perder a posição no portfólio. Escape funciona nos controles da janela; teclas acionadas dentro da aplicação de outra origem são controladas pelo navegador e pela própria aplicação.
+
+Há aviso de uso de dados fictícios e botão para recarregar a demonstração se a rede ou a incorporação falhar. O evento load de um iframe não comprova sucesso do site externo, por isso a interface não declara que a aplicação está operacional. O iframe restringe navegação superior e novas janelas, mantendo scripts, formulários e downloads de relatórios demonstrativos.
+
+A CSP da publicação estática e do servidor Express permite frame-src exclusivamente para os dois endereços acima. Nenhuma alteração no banco ou na autenticação. As imagens e clipes do portfólio foram preservados.
+
+Validação automatizada usa os builds locais reais das demonstrações e serve as três origens por interceptação no navegador para testar os cabeçalhos efetivos do pacote. Os acessos HTTPS públicos deste ambiente foram bloqueados pelo proxy de saída (CONNECT 403); isso não demonstra falha dos sites publicados. Validar a incorporação no domínio real após o deploy, inclusive Safari/Firefox e celular físico.
+
+A integração foi validada em Chromium nas páginas inicial, Linha Tênue e Cidade do Sabor, em 390/768/1440 px: carregamento sob demanda, navegação do cardápio dentro do iframe, ausência de novas abas, alternância de largura, recarga, fechamento por botão e Escape nos controles, restauração de foco e posição da página. A navegação pública externa continua pendente pela restrição de rede descrita acima.
+
+Nos testes de iframe entre dsaol.com.br e pages.dev, o Chromium restringiu o armazenamento local da demonstração. O Cidade do Sabor exibiu seu aviso existente e continuou funcionando com dados somente na aba. Os controles da janela não removem esse aviso. Associar as demonstrações aos subdomínios da dsaol.com.br é o próximo passo recomendado para usar origens do mesmo site; verificar novamente persistência e compatibilidade nos navegadores reais.

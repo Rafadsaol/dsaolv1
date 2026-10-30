@@ -22,7 +22,7 @@ export async function createApp(config) {
   const PgStore = connectPg(session);
   const store = new PgStore({ pool, tableName: 'session', createTableIfMissing: false, pruneSessionInterval: 60 });
   const app = express(); app.disable('x-powered-by'); app.set('trust proxy', config.trustProxy);
-  app.use(helmet({ contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'"], styleSrc: ["'self'"], imgSrc: ["'self'", 'data:'], connectSrc: ["'self'"], objectSrc: ["'none'"], frameAncestors: ["'none'"], upgradeInsecureRequests: config.production ? [] : null } }, referrerPolicy: { policy: 'no-referrer' }, strictTransportSecurity: config.production ? undefined : false }));
+  app.use(helmet({ contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'"], styleSrc: ["'self'"], imgSrc: ["'self'", 'data:'], connectSrc: ["'self'"], objectSrc: ["'none'"], frameSrc: ['https://linhatenuev1.pages.dev', 'https://cidadedosaborv1.pages.dev'], frameAncestors: ["'none'"], upgradeInsecureRequests: config.production ? [] : null } }, referrerPolicy: { policy: 'no-referrer' }, strictTransportSecurity: config.production ? undefined : false }));
   app.use(express.json({ limit: '16kb', type: 'application/json' }));
   app.use(session({ name: 'dsaol.sid', secret: config.SESSION_SECRET, store, resave: false, saveUninitialized: false,
     cookie: { httpOnly: true, secure: config.secureCookies, sameSite: 'lax', maxAge: 8 * 60 * 60_000, path: '/' } }));
