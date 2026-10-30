@@ -20,7 +20,7 @@ O e-mail informado configura o link `mailto:`. Isso não configura envio de e-ma
 
 ## Por que Cloudflare Pages
 
-A documentação oficial consultada em 30/10/2026 confirma um plano gratuito para sites estáticos com domínio próprio. Os limites publicados incluem 500 builds por mês, 20.000 arquivos e 25 MiB por arquivo. O pacote atual tem **60 arquivos, cerca de 8,83 MiB no total e maior arquivo de 1,27 MiB**. Não utiliza Functions, banco ou serviços pagos da Cloudflare.
+A documentação oficial consultada em 30/10/2026 confirma um plano gratuito para sites estáticos com domínio próprio. Os limites publicados incluem 500 builds por mês, 20.000 arquivos e 25 MiB por arquivo. O pacote atual tem **61 arquivos, cerca de 8,83 MiB no total e maior arquivo de 1,27 MiB**. Não utiliza Functions, banco ou serviços pagos da Cloudflare.
 
 A renovação do domínio continua sendo feita no Registro.br; hospedagem gratuita não elimina essa cobrança do domínio. O domínio pode continuar registrado lá mesmo usando DNS da Cloudflare.
 
@@ -147,3 +147,5 @@ A correção desta apresentação é enviada à branch `v5-fullstack` para recon
 ### Acabamento com tela preenchida
 
 Removidas as faixas simuladas de câmera e indicador inferior das molduras mobile. A imagem agora ocupa toda a tela interna; somente um pequeno círculo decorativo representa a câmera. O ajuste foi conferido no Chromium em 360/768/1440, com preenchimento, alinhamento, rolagem, ampliação e início no topo aprovados. Não houve alteração nas imagens, scripts de interação, contatos ou backend. O CSS e o HTML do pacote estático gerado foram comparados aos fontes.
+
+Ao atualizar uma página pública (F5 ou recarregar no celular), `projetos/page-navigation.js` volta ao topo da própria página e remove a âncora antiga, preservando o caminho e os parâmetros da URL. Links para seções e o histórico de voltar/avançar continuam disponíveis. Verificado localmente em Chromium, nas dez páginas públicas, com larguras de 390 e 1440 px; Safari, Firefox e dispositivos físicos ainda não foram testados para esse comportamento.
