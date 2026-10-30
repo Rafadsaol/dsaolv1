@@ -181,7 +181,7 @@
         "source_page": "/",
         "scroll_offset": [
           0,
-          12
+          0
         ],
         "viewport": [
           390,
@@ -192,13 +192,13 @@
           780,
           2000
         ],
-        "method": "Nova captura real no Chromium; apenas o contorno externo recebe borda transparente durante a captura. Geometria e arquivos do projeto original preservados.",
+        "method": "Captura real no Chromium com cabeçalho e hero em toda a largura do viewport, sem margens ou bordas externas. Texto e arquivos do projeto original preservados.",
         "source_commit": "5f1bd0366b59c5f2cce195578a304edfa3a53335",
-        "sha256": "3c8f42957da048bf6539c3baf8b6cba2b05caf01f1a087b89c278a4d800927ec",
+        "sha256": "7f0ecb972bf006aab53be22ec1d138680323f6b492f73379859f825df73a777a",
         "capture_styles": [
           {
             "selector": ".header-home, .showcase",
-            "declaration": "border-color: transparent !important"
+            "declaration": "width: 100% !important; max-width: none !important; margin: 0 !important; border: 0 !important; border-radius: 0 !important;"
           }
         ]
       },
