@@ -143,3 +143,7 @@ As duas capturas atuais são `inicio-mobile-alinhado.png` e `cardapio-mobile-ali
 O acabamento usa bordas escuras mais finas, câmera discreta e uma única escala de apresentação. Foram medidos no Chromium os topos e bases dos aparelhos, telas, câmeras, títulos e links, com diferença inferior a 0,5 px entre as colunas. Em 360 px, ambos mantêm o mesmo centro e são empilhados com espaçamento consistente. Rolagem interna e os links de ampliação foram testados pelo teclado.
 
 A correção desta apresentação é enviada à branch `v5-fullstack` para reconstrução da prévia já criada pela pessoa usuária. Esta atualização não usa o prefixo de pausa do commit anterior. O deploy depende das configurações da integração Git no Pages; confira o commit do deploy ativo antes de revisar o resultado no endereço publicado. Nenhuma alteração do domínio ou DNS acompanha a atualização visual.
+
+### Acabamento com tela preenchida
+
+Removidas as faixas simuladas de câmera e indicador inferior das molduras mobile. A imagem agora ocupa toda a tela interna; somente um pequeno círculo decorativo representa a câmera. O ajuste foi conferido no Chromium em 360/768/1440, com preenchimento, alinhamento, rolagem, ampliação e início no topo aprovados. Não houve alteração nas imagens, scripts de interação, contatos ou backend. O CSS e o HTML do pacote estático gerado foram comparados aos fontes.

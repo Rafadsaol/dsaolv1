@@ -76,3 +76,9 @@ Cada `.case-mobile-item` tem três linhas de grade: rótulo de 28 px, aparelho d
 As molduras agora têm largura máxima de 280 px e acabamento escuro discreto. O conteúdo continua rolável e mantém texto alternativo e nomes acessíveis. Os links de ampliação usam SVG local em vez de depender de um glifo de seta da fonte.
 
 A validação no Chromium conferiu dimensões e posições dos dois aparelhos, câmeras, telas, rótulos e links, além de rolagem interna e ampliação por teclado. Foram verificadas larguras de 360, 768 e 1440 px. Veja os novos arquivos e a origem em `docs/portfolio-fontes.json` e o estado da prévia em [Publicação](../publicacao.md).
+
+## Tela preenchida e câmera circular
+
+A moldura atual usa a captura em toda a área interna. `.case-phone-display` mantém a proporção e os cantos arredondados; `.case-phone-screen` ocupa essa área com `position: absolute` e `inset: 0`. A faixa superior e a barra inferior simuladas foram removidas. `.case-phone-camera` é apenas um círculo decorativo sobreposto, com `pointer-events: none`, sem reservar espaço na tela.
+
+O ajuste afeta somente a apresentação das capturas. Nenhum arquivo do projeto original Cidade do Sabor foi alterado. As imagens permanecem roláveis e ampliáveis. No Chromium em 360, 768 e 1440 px, foram conferidos o preenchimento completo da moldura, alinhamento entre os aparelhos, início das capturas no topo e navegação por teclado. Clique na imagem e recarregamento também foram conferidos, sem deslocamento automático observado nessa execução.
