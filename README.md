@@ -2,6 +2,12 @@
 Testando codex portifolio para pagina minha
 
 
+## Preparação da publicação — dSaOl Web Studio
+
+A preparação para disponibilizar o site permanentemente começou. O projeto ainda não recebeu deploy nesta etapa. Veja o [roteiro de publicação e as decisões pendentes](docs/publicacao.md), com as diferenças entre publicar o portfólio com WhatsApp e hospedar a aplicação completa com Node/PostgreSQL.
+
+Na raiz do projeto, `node scripts/verificar-publicacao.mjs` confere as nove páginas públicas e suas referências sem ler `.env`, acessar o banco ou publicar arquivos. O modo `--estrito` também bloqueia as pendências registradas. O [capítulo 13 de estudos](docs/estudos/13-preparacao-publicacao.md) explica a revisão das molduras de celular e como repetir a conferência.
+
 ## V5 — Full Stack para estudos (não publicada)
 
 A V5 acrescenta backend Node 24/Express, PostgreSQL/Prisma, autenticação por sessão, painel administrativo e registro opcional de solicitações. O site público permanece em HTML/CSS/JavaScript. Veja os [comandos, arquitetura, testes e pendências da V5](backend/README.md).
