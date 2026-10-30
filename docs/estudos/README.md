@@ -88,3 +88,5 @@ A evolução Full Stack V5 está explicada no [capítulo 9](09-backend-v5.md). O
 Os testes confirmados pela pessoa usuária no Windows e os casos ainda pendentes estão registrados no [capítulo 10](10-testes-manuais-v5.md), com passos, resultados esperados e distinção entre validação manual e automatizada.
 
 O [capítulo 11](11-link-temporario.md) inclui o registro de funcionamento do link temporário em 26/10/2026, os problemas encontrados e como encerrar e retomar os testes sem recriar o banco.
+
+O [capítulo 15](15-demonstracoes-online.md) reúne a configuração dos projetos de demonstração na Cloudflare Pages, subdomínios planejados e verificações realizadas.
