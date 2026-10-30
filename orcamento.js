@@ -5,10 +5,8 @@
   const feedback = document.querySelector('#quote-feedback');
   const fields = [...form.querySelectorAll('input, select, textarea')];
   const service = document.querySelector('#quote-service');
-  const serviceNames = new Map([
-    ['sites', 'Criação de Sites'], ['automacao', 'Automação'],
-    ['infraestrutura', 'Infraestrutura de TI'], ['outro', 'Outro']
-  ]);
+  // Os rótulos vêm do próprio select, evitando listas divergentes entre HTML e mensagem.
+  const serviceNames = new Map([...service.options].filter(option => option.value).map(option => [option.value, option.textContent]));
   const validDDDs = new Set([
     '11', '12', '13', '14', '15', '16', '17', '18', '19', '21', '22', '24', '27', '28',
     '31', '32', '33', '34', '35', '37', '38', '41', '42', '43', '44', '45', '46', '47', '48', '49',
@@ -93,21 +91,31 @@
     }
   }
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
+  function validateForm() {
     const invalid = fields.filter((field) => !validateField(field));
     if (invalid.length) {
       feedback.dataset.state = 'error';
       feedback.textContent = `Revise ${invalid.length === 1 ? 'o campo indicado' : 'os campos indicados'} antes de continuar.`;
       invalid[0].focus();
-      return;
+      return false;
     }
+    return true;
+  }
+
+  // O registro opcional reutiliza a mesma validação sem abrir o WhatsApp.
+  form.addEventListener('quote:validate', event => {
+    if (!validateForm()) event.preventDefault();
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!validateForm()) return;
     const number = businessNumber();
     if (!number) return configurationError();
     const value = (id) => document.querySelector(`#quote-${id}`).value.trim();
     const phone = brazilianPhone(value('phone'));
     const message = [
-      'Olá, dSaOl IT! Gostaria de solicitar um orçamento.',
+      'Olá, dSaOl Web Studio! Gostaria de solicitar um orçamento de site.',
       '', `Nome: ${value('name')}`, `Empresa: ${value('company') || 'Não informada'}`,
       `Serviço solicitado: ${serviceNames.get(service.value)}`, '',
       'Descrição do projeto:', value('description'), '',
@@ -130,7 +138,7 @@
   document.querySelector('#whatsapp-floating').addEventListener('click', () => {
     const number = businessNumber();
     if (!number) return configurationError();
-    openWhatsApp(number, 'Olá, dSaOl IT! Gostaria de conversar sobre uma solução para o meu negócio.');
+    openWhatsApp(number, 'Olá, dSaOl Web Studio! Gostaria de conversar sobre a criação de um site.');
   });
 
   // Sem JavaScript, o botão permanece desabilitado e não há submissão HTTP.

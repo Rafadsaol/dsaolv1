@@ -12,13 +12,18 @@
   button.addEventListener('click', async () => {
     if (sending) return;
     if (!consent.checked) { feedback.textContent = 'Marque a autorização específica para registrar a solicitação no site.'; consent.focus(); return; }
-    if (!form.reportValidity()) return;
+    if (!form.dispatchEvent(new Event('quote:validate', { cancelable: true })) || !form.reportValidity()) return;
     sending = true; button.disabled = true; button.textContent = 'Registrando…';
     try {
       key ||= crypto.randomUUID();
       const requestKey = key;
       const read = field => document.querySelector(`#quote-${field}`).value.trim();
-      const payload = { name: read('name'), email: read('email'), phone: read('phone'), service: read('service'), message: read('description'), consent: true };
+      const selection = document.querySelector('#quote-service');
+      // Compatibilidade com a API e a restrição do banco existente, sem migration.
+      // O formato escolhido fica na descrição, visível no painel administrativo.
+      const payload = { name: read('name'), email: read('email'), phone: read('phone'),
+        service: selection.value === 'outro' ? 'outro' : 'sites',
+        message: `Formato do site: ${selection.selectedOptions[0].textContent}\n\n${read('description')}`, consent: true };
       const csrfResponse = await fetch('/api/v1/auth/csrf', { credentials: 'same-origin' });
       if (!csrfResponse.ok) throw new Error();
       const csrf = await csrfResponse.json();
