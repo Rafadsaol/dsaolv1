@@ -20,7 +20,7 @@ O e-mail informado configura o link `mailto:`. Isso não configura envio de e-ma
 
 ## Por que Cloudflare Pages
 
-A documentação oficial consultada em 30/10/2026 confirma um plano gratuito para sites estáticos com domínio próprio. Os limites publicados incluem 500 builds por mês, 20.000 arquivos e 25 MiB por arquivo. O pacote atual tem **61 arquivos, cerca de 8,83 MiB no total e maior arquivo de 1,27 MiB**. Não utiliza Functions, banco ou serviços pagos da Cloudflare.
+A documentação oficial consultada em 30/10/2026 confirma um plano gratuito para sites estáticos com domínio próprio. Os limites publicados incluem 500 builds por mês, 20.000 arquivos e 25 MiB por arquivo. O pacote atual tem **62 arquivos** (incluindo a nova logo transparente; a arte anterior foi preservada). Não utiliza Functions, banco ou serviços pagos da Cloudflare.
 
 A renovação do domínio continua sendo feita no Registro.br; hospedagem gratuita não elimina essa cobrança do domínio. O domínio pode continuar registrado lá mesmo usando DNS da Cloudflare.
 
