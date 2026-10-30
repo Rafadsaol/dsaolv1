@@ -1,0 +1,131 @@
+[
+  {
+    "project": "linha-tenue",
+    "repository": "https://github.com/Rafadsaol/linhatenuev1",
+    "commit": "7195ed57368d15d2a1d64293feca4a1c2ba70326",
+    "images": [
+      {
+        "file": "imagens/home.jpg",
+        "source_path": "public/images/case-study/home.jpg",
+        "sha256": "2ea4881d251cbb4618f9fae8a4d26099b031debdd6524bccc98d6b1c9faf5555"
+      },
+      {
+        "file": "imagens/catalog.jpg",
+        "source_path": "public/images/case-study/catalog.jpg",
+        "sha256": "c83be30c1eab560ee78ff71b33f9c8b193deb46a1a00e6334a4d6c00e92ee89c"
+      },
+      {
+        "file": "imagens/product.jpg",
+        "source_path": "public/images/case-study/product.jpg",
+        "sha256": "37d32c038a911c6c6444b90a450356e5ecbbee1c727d2d2e595dee92e6f3a509"
+      },
+      {
+        "file": "imagens/cart.jpg",
+        "source_path": "public/images/case-study/cart.jpg",
+        "sha256": "fab14c408186bcfc965ce572d4a4b4846b17da5d8b7150b9357e6f60c5ffb2c2"
+      },
+      {
+        "file": "imagens/checkout.jpg",
+        "source_path": "public/images/case-study/checkout.jpg",
+        "sha256": "434d438806efdb8441246c5b17859297fd77bc35ec73af91d1b155fc491dadaf"
+      },
+      {
+        "file": "imagens/admin.jpg",
+        "source_path": "public/images/case-study/admin.jpg",
+        "sha256": "050d9bb20789fc5f68a9c69021a07aae770e340b578ae1768463b545f0eae06d"
+      }
+    ],
+    "video": {
+      "file": "media/demonstracao.mp4",
+      "captions": "media/roteiro.vtt",
+      "sha256": "bafa64a712f701be5dcb54aa1efe31b051627834ed65d9a3c6125505268003a2",
+      "duration_seconds": 31.05,
+      "resolution": [
+        1280,
+        800
+      ],
+      "audio": false,
+      "method": "Chromium CDP screencast + FFmpeg H.264",
+      "steps": [
+        "Linha Tênue: projeto conceitual de streetwear, sem compras reais.",
+        "Exploração do catálogo e busca por peças.",
+        "Detalhe da peça e seleção de um tamanho disponível.",
+        "Adicionar à sacola: seleção persistida apenas na demonstração.",
+        "Checkout demonstrativo: revisão das peças e dos valores.",
+        "Entrega fictícia, sem endereço pessoal ou envio real.",
+        "Pagamento de demonstração: nenhuma cobrança ou dado financeiro.",
+        "Simular pedido: o registro é local e não representa uma venda.",
+        "LT Axis / Admin: painel com indicadores e pedidos fictícios."
+      ]
+    }
+  },
+  {
+    "project": "cidade-do-sabor",
+    "repository": "https://github.com/Rafadsaol/cidadedosaborv1",
+    "commit": "5f1bd0366b59c5f2cce195578a304edfa3a53335",
+    "images": [
+      {
+        "file": "imagens/inicio-desktop.webp",
+        "source_path": "public/images/case-study/inicio-desktop.webp",
+        "sha256": "b0f06f13de836d103633b87689afce55dc35a7c4823e16b45d8fadc6f1423075"
+      },
+      {
+        "file": "imagens/cardapio-desktop.webp",
+        "source_path": "public/images/case-study/cardapio-desktop.webp",
+        "sha256": "cfa305715559acbca3b5f35c3d91544f751853165cb377b952555a83c7e58ade"
+      },
+      {
+        "file": "imagens/personalizacao-desktop.webp",
+        "source_path": "public/images/case-study/personalizacao-desktop.webp",
+        "sha256": "c302fb4b1c2a5134309cb29a67e408a4546b38c3caae4f29621db7ea63cd2941"
+      },
+      {
+        "file": "imagens/checkout-desktop.webp",
+        "source_path": "public/images/case-study/checkout-desktop.webp",
+        "sha256": "8888621d7ad4bd3f120e4123853cfc6508302b1c217b423ec934f3ec472ff240"
+      },
+      {
+        "file": "imagens/painel-desktop.webp",
+        "source_path": "public/images/case-study/painel-desktop.webp",
+        "sha256": "817f2155050c518f7363d5080e1786335cff8120c014353cf8b82f5907ff4a6c"
+      },
+      {
+        "file": "imagens/pedidos-desktop.webp",
+        "source_path": "public/images/case-study/pedidos-desktop.webp",
+        "sha256": "396fa08f52aeee557a6dd3d77a434c42c3c6be6c7e3b9e5c92e15673a8e24916"
+      },
+      {
+        "file": "imagens/inicio-mobile.webp",
+        "source_path": "public/images/case-study/inicio-mobile.webp",
+        "sha256": "fe1ed86c342952e750003af3e71c6f2db1aaa28f036785233b3fbf216f6dc5aa"
+      },
+      {
+        "file": "imagens/favoritos-mobile.webp",
+        "source_path": "public/images/case-study/favoritos-mobile.webp",
+        "sha256": "40f94264e6943024c4c34c7354214a2678a7619194b7cb6d3c0e60ee8c293649"
+      }
+    ],
+    "video": {
+      "file": "media/demonstracao.mp4",
+      "captions": "media/roteiro.vtt",
+      "sha256": "54515ee2fd30c0a4051b40c68295db9c9c515e5a22ab6841e6b10289e6bbe97b",
+      "duration_seconds": 28.1,
+      "resolution": [
+        1280,
+        800
+      ],
+      "audio": false,
+      "method": "Chromium CDP screencast + FFmpeg H.264",
+      "steps": [
+        "Cidade do Sabor: hamburgueria conceitual, sem operação real.",
+        "Cardápio interativo: busca por nome e apresentação dos produtos.",
+        "Personalização do produto com adicionais demonstrativos.",
+        "Carrinho com a combinação e os valores da simulação.",
+        "Checkout local: identificação fictícia e opção de retirada.",
+        "Escolha visual de pagamento, sem cobrança ou dados de cartão.",
+        "Pedido de teste: nenhum envio ao restaurante ou pagamento real.",
+        "Perfil Administrador Demo: acesso fictício, sem autenticação real."
+      ]
+    }
+  }
+]

@@ -51,7 +51,7 @@ Exemplo de estrutura a preencher com informações verificadas:
 </article>
 ```
 
-**Linha Tênue** e **Cidade do Sabor** foram citados pela pessoa usuária, mas não foram encontrados arquivos, imagens, escopo ou links desses projetos no repositório inspecionado. Os nomes foram reservados em cards com apresentação pendente e sem botão inativo ou link inventado. Não são classificados como clientes, projetos entregues ou conceitos concluídos. Para publicar estudos completos, faltam os materiais e a confirmação de sua natureza e autoria.
+Na primeira etapa do rebranding, **Linha Tênue** e **Cidade do Sabor** foram reservados em cards pendentes porque seus materiais não estavam neste repositório. Posteriormente, a pessoa usuária confirmou que são conceitos sem clientes reais e forneceu os repositórios originais. Os cards agora levam a estudos de caso com capturas reais e vídeos do funcionamento demonstrativo. As aplicações interativas ainda não têm URLs públicas. Consulte [a integração e suas fontes](portfolio-projetos-conceituais.md).
 
 ## Validação executada
 
@@ -86,7 +86,7 @@ A transferência pelo Git inclui o código e os assets; não inclui `.env`, banc
 
 ## Pendências antes do uso comercial
 
-- Fornecer e revisar os materiais de Linha Tênue e Cidade do Sabor.
+- Se desejar acesso interativo a Linha Tênue e Cidade do Sabor, publicar as aplicações originais em etapa separada e fornecer URLs reais. Capturas, vídeos e estudos de caso já foram integrados conforme o [registro de portfólio](portfolio-projetos-conceituais.md).
 - Confirmar se o e-mail já configurado `contato@dsaol.it` é operacional. Foi preservado; o comentário no código ainda o identifica como provisório.
 - Conferir os textos comerciais, escopo de lojas virtuais e condições de domínio, hospedagem e atendimento. Nenhum preço, prazo fixo, cliente, depoimento, certificação ou resultado foi inventado.
 - Testar em celular físico, Safari/Firefox, Windows e com tecnologias assistivas. Não foram executados nesta revisão.

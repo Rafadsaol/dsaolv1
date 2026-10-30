@@ -46,7 +46,7 @@ export async function createApp(config) {
     next();
   }, express.static(path.join(root, 'assets'), { dotfiles: 'deny' }));
   for (const directory of ['servicos', 'projetos']) app.use(`/${directory}`, (req, res, next) => {
-    if (path.extname(req.path) && !/\.(html|css|js|svg|png|jpg|jpeg|webp|ico)$/i.test(req.path)) return res.sendStatus(404);
+    if (path.extname(req.path) && !/\.(html|css|js|svg|png|jpg|jpeg|webp|ico|mp4|vtt)$/i.test(req.path)) return res.sendStatus(404);
     next();
   }, express.static(path.join(root, directory), { dotfiles: 'deny' }));
   app.use((req, res) => res.status(404).type('text').send('Página não encontrada.'));
